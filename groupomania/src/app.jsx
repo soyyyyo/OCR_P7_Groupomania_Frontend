@@ -16,8 +16,10 @@ const App = () => {
     return (
         <Fragment>
             <Header />
+            <p>FORMULAIRE NEW POST</p>
+            <NewPost />
+            <p>TOUS LES POSTS</p>
             <Allposts />
-            <p>Voila des infos depuis app.jsx</p>
             {/* <TestApi currentUser={currentUser} /> */}
             {/* <TestApi /> */}
         </Fragment>

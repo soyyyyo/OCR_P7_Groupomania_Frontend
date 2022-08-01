@@ -1,28 +1,30 @@
-import PropTypes from 'prop-types'
-import DefaultPicture from '../../assets/profile.png'
+// import PropTypes from 'prop-types'
+// import DefaultPicture from '../../assets/profile.png'
 
 
-function Post({ label, title, picture }) {
+function Post({ title, text, likes, dislikes }) {
+    console.log(title)
     return (
-        <div>
-            <div>{label}</div>
-            <img src={picture} alt="freelance" />
-            <div>{title}</div>
+        <div className="post">
+            <h2>{title}</h2>
+            <p>{text}</p>
+            <p>{likes}</p>
+            <p>{dislikes}</p>
         </div>
     )
 }
 
-Post.propTypes = {
-    label: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
-}
+// Post.propTypes = {
+//     label: PropTypes.string.isRequired,
+//     title: PropTypes.string.isRequired,
+//     picture: PropTypes.string.isRequired,
+// }
 
-Post.defaultProps = {
-    label: '',
-    title: '',
-    picture: DefaultPicture,
-}
+// Post.defaultProps = {
+//     label: '',
+//     title: '',
+//     picture: DefaultPicture,
+// }
 
 export default Post
 
