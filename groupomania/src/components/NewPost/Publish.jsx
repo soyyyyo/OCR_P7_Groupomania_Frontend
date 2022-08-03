@@ -2,7 +2,7 @@ import NewPost from "./NewPost";
 
 const Publish = (data) => {
 
-    console.log(data)
+    console.log("Has been sent to API : ", data)
 
 }
 

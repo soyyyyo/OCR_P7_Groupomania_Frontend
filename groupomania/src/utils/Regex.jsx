@@ -2,7 +2,7 @@
 const Regex = (value, type) => {
     // Type texte: lettres et accents uniquements, jusqu'à 31 caractéres
     if (type === "text") {
-        const minRegexp = /^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\s-]{1,31}$/i;
+        const minRegexp = /^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\s-]{5,31}$/i;
         const valid = minRegexp.test(value);
         return valid;
         // Type email: vérifie le @, une extension de domaine, le double point etc...

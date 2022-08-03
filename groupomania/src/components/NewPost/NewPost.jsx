@@ -13,25 +13,26 @@ function NewPost() {
     //     }
     // }, [third])
 
-    let titleInput = "cc";
-    let textInput = "dd";
+    let titleInput = "";
+    let textInput = "";
+    let errorCount = []
 
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(titleInput, textInput)
+        let postInput = [titleInput, textInput];
 
-        // Regex(titleInput, "text") ? (console.log("JE SUIS UN GROS CACA")) : (console.log("petit pipi"))
-        // Regex(textInput, "text") ? (console.log("JE SUIS UN GROS CACA")) : (console.log("petit pipi"))
+        postInput.map((data, index) => (
+            Regex(data, "text") ? (errorCount[index] = 0) : (errorCount[index] = 1)
+        ));
 
-        let postInput = [titleInput, textInput]
+        errorCount.reduce((previousValue, currentValue) => previousValue + currentValue, 0) === 0 ?
+            (Publish(postInput))
 
+            : (console.log("un champ regex n'est pas ok"));
 
-        postInput.map((data) => (
-            Regex(data, "text") ? (console.log("YES")) : (console.log("NO"))
-        ))
-
-        console.log(postInput)
+        console.log(errorCount);
+        console.log(postInput);
 
 
     }
@@ -47,6 +48,7 @@ function NewPost() {
             textInput = e.target.value
         })
     })
+
     return (
         < div className="cart__order" >
             <form onSubmit={handleSubmit} method="get" className="cart__order__form">
