@@ -8,7 +8,7 @@ const Allposts = () => {
     `http://localhost:4200/api/posts`
   )
 
-  console.log("jerem le boss", data)
+  console.log("data from fetch allpost : ", data)
 
   if (error) {
     return <span>Il y a un problème</span>

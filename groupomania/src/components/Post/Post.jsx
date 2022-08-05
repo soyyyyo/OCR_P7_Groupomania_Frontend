@@ -3,7 +3,6 @@
 
 
 function Post({ title, text, likes, dislikes }) {
-    console.log(title)
     return (
         <div className="post">
             <h2>{title}</h2>

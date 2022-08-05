@@ -2,65 +2,73 @@ import React from "react"
 import Publish from "./Publish"
 import Regex from "../../utils/Regex";
 import { useEffect, useState } from "react";
+import './NewPost.css'
+import Error from "./Error"
+
+/*
+props = parent vers enfant
+string, objet...
+
+state = donnée propre au composant SAUF si passé en props
+*/
+
 
 function NewPost() {
-
-    // useEffect(() => {
-    //     first
-
-    //     return () => {
-    //         second
-    //     }
-    // }, [third])
-
-    let titleInput = "";
-    let textInput = "";
-    let errorCount = []
+    const [titleInput, setTitleInput] = useState("")
+    const [textInput, setTextInput] = useState("")
+    const [errorInput, setErrorInput] = useState({ title: "truc", text: "chose" })
 
 
     const handleSubmit = event => {
         event.preventDefault();
-        let postInput = [titleInput, textInput];
+        console.log(titleInput);
+        console.log(textInput);
+        console.log("error input :", errorInput)
 
-        postInput.map((data, index) => (
-            Regex(data, "text") ? (errorCount[index] = 0) : (errorCount[index] = 1)
-        ));
+        if (Regex(titleInput, "text")) {
+            console.log("Regex TITLE OK")
+            setErrorInput(prevState => ({
+                ...prevState,
+                title: "bite"
+            }))
+        } else {
+            console.log("Regex TITLE NOT-OK")
+        }
 
-        errorCount.reduce((previousValue, currentValue) => previousValue + currentValue, 0) === 0 ?
-            (Publish(postInput))
+        console.log("error input :", errorInput)
 
+        // Regex(titleInput, "text") ? setErrorInput("hihihi") : (console.log("Regex not valid"))
+        // console.log("error input : ", errorInput);
+
+
+        errorInput === [0, 0] ?
+            (Publish(titleInput, textInput))
             : (console.log("un champ regex n'est pas ok"));
+    }
 
-        console.log(errorCount);
-        console.log(postInput);
+    const updateTitleInput = (event) => {
+        setTitleInput(event.target.value)
+    }
 
-
+    const updateTextInput = (event) => {
+        setTextInput(event.target.value)
     }
 
 
-
-
-    useEffect(() => {
-        const toTitle = document.querySelector("#title").addEventListener("change", function (e) {
-            titleInput = e.target.value
-        })
-        const toText = document.querySelector("#text").addEventListener("change", function (e) {
-            textInput = e.target.value
-        })
-    })
-
     return (
         < div className="cart__order" >
-            <form onSubmit={handleSubmit} method="get" className="cart__order__form">
+            <form method="get" className="cart__order__form" onSubmit={handleSubmit}>
                 <div className="cart__order__form__question">
                     <label htmlFor="title">Titre: </label>
-                    <input type="text" name="title" id="title" maxLength={10} required />
+                    <input type="text" name="title" id="title" maxLength={10} className="infobulle" aria-label="texte à afficher" title="je suis un titre" value={titleInput} onChange={updateTitleInput} required />
                     <p id="titleErrorMsg"></p>
+                    {/* <Error propsTitleInput={titleInput} /> */}
                 </div>
                 <div className="cart__order__form__question">
                     <label htmlFor="text">Message: </label>
-                    <input type="text" name="text" id="text" maxLength={100} required />
+                    <input type="text" name="text" id="text" maxLength={100} title="je suis un titre" value={textInput} onChange={updateTextInput} required />
                     <p id="textErrorMsg"></p>
+                    {/* <Error propsTextInput={textInput} /> */}
                 </div>
                 <div className="cart__order__form__submit">
                     <input type="submit" value="Publier" id="publish" />
@@ -69,6 +77,7 @@ function NewPost() {
         </div >
     )
 }
+
 
 // document query selector
 // validate
