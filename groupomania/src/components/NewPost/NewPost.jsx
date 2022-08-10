@@ -15,44 +15,69 @@ state = donnée propre au composant SAUF si passé en props
 
 function NewPost() {
     const [userInput, setUserInput] = useState({ title: "", text: "" })
-    const [errorInput, setErrorInput] = useState({ title: false, text: false })
+    const [errorInput, setErrorInput] = useState({ title: true, text: true })
 
     const onChange = (e) => {
         const { name, value } = e.target;
-        setUserInput({ ...userInput, [name]: value })
+        // setUserInput({ ...userInput, [name]: value })
+
+        setUserInput((userInput) => {
+            return { ...userInput, [name]: value }
+        })
+
+
         console.log("L'input à changé !")
+        console.log("Active user target", e.target.value)
+        console.log("User input", userInput)
     }
 
+    useEffect(() => { // this hook will get called everytime when myArr has changed
+        // perform some action which will get fired everytime when myArr gets updated
+        console.log('Updated State', userInput)
+    }, [userInput], [setUserInput])
 
     const handleSubmit = event => {
         event.preventDefault();
-
         const keysUserInput = Object.keys(userInput);
-        const valuesUserInput = Object.values(userInput);
+        // const valuesUserInput = Object.values(userInput);
 
 
         // itére userInput avec chaque clé de keysUserInput, pour définir si des erreurs de Regex existent.
-        keysUserInput.forEach(element => {
-            if (Regex(userInput[element], "text")) {
-                setErrorInput(prevState => ({
-                    ...prevState,
-                    [element]: false
-                }))
-            } else {
-                setErrorInput(prevState => ({
-                    ...prevState,
-                    [element]: true
-                }))
-            }
-            console.log("Error Input", errorInput)
+        const checkRegex = async () => {
+            keysUserInput.forEach(element => {
+                if (Regex(userInput[element], "text")) {
+                    setErrorInput(prevState => ({
+                        ...prevState,
+                        [element]: false
+                    }))
+                } else {
+                    setErrorInput(prevState => ({
+                        ...prevState,
+                        [element]: true
+                    }))
+                }
+                console.log("Error Input", errorInput)
+            });
+            return (
+                console.log("Check Regex is OK")
+            )
+        }
+
+        let promise = new Promise((resolve, reject) => {
+            checkRegex()
+                .then((res) => {
+                    // successfully got data
+                    console.log("j'ai la data")
+                    errorInput.text === false && errorInput.title === false ? (console.log("Envoi API")) : (console.log("Can't publish with Regex error !"))
+                    resolve(res);
+                })
+                .catch((err) => {
+                    // an error occured
+                    console.log("j'ai PAS la data")
+                    reject(err);
+                });
         });
 
-        // const leTrucCool = {
-        //     title: "titreeuhh",
-        //     text: "texteuuh"
-        // }
-
-        errorInput.text === false && errorInput.title === false ? (console.log("patati")) : (console.log("Can't publish with Regex error !"))
         // errorInput === [0, 0] ?
         //     (Publish(titleInput, textInput))
         //     : (console.log("un champ regex n'est pas ok"));
