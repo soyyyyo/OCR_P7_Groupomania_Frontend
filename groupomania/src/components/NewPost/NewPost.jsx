@@ -24,8 +24,6 @@ function NewPost() {
         setUserInput((userInput) => {
             return { ...userInput, [name]: value }
         })
-
-
         console.log("L'input à changé !")
         console.log("Active user target", e.target.value)
         console.log("User input", userInput)
@@ -92,13 +90,13 @@ function NewPost() {
             <form method="get" className="cart__order__form" onSubmit={handleSubmit}>
                 <div className="cart__order__form__question">
                     <label htmlFor="title">Titre: </label>
-                    <input type="text" name="title" id="title" maxLength={10} className="infobulle" aria-label="texte à afficher" value={userInput.title} onChange={onChange} required />
+                    <input type="text" name="title" id="title" maxLength={10} placeholder="Le titre de votre publication" className="infobulle" aria-label="texte à afficher" value={userInput.title} onChange={onChange} required />
                     <p id="titleErrorMsg"></p>
                     {/* <Error propsTitleInput={titleInput} /> */}
                 </div>
                 <div className="cart__order__form__question">
                     <label htmlFor="text">Message: </label>
-                    <input type="text" name="text" id="text" maxLength={100} value={userInput.text} onChange={onChange} required />
+                    <input type="text" name="text" id="text" maxLength={100} placeholder="Partagez votre expérience" value={userInput.text} onChange={onChange} required />
                     <p id="textErrorMsg"></p>
                     {/* <Error propsTextInput={textInput} /> */}
                 </div>
@@ -106,6 +104,8 @@ function NewPost() {
                     <input type="submit" value="Publier" id="publish" />
                 </div>
             </form>
+
+            <p>{userInput.title}</p>
         </div >
     )
 }
