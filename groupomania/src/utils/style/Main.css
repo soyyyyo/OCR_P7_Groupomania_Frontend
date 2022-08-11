@@ -1,0 +1,14 @@
+.container-center {
+    display: flex;
+    width: 100%;
+}
+
+#ToolBar {
+    width: 20%;
+    border: 1px green solid;
+    margin-right: var(--margin-g);
+}
+
+main {
+    width: 80%;
+}

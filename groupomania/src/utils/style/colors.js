@@ -6,4 +6,5 @@ const colors = {
   dark: '#2F2E41',
 }
 
+
 export default colors

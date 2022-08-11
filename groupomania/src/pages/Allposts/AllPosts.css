@@ -1,0 +1,52 @@
+.Post {
+    border: 1px red solid;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.Post__Main {}
+
+h2,
+p {
+    width: 100%;
+}
+
+.Post__Side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+img {
+    width: 80%;
+    margin: var(--margin-g);
+}
+
+.Likes {
+    display: flex;
+    border: 1px red solid;
+    width: 200px;
+    column-gap: 30px;
+    justify-content: center;
+}
+
+.fa-solid {
+    width: 50px;
+    height: 50px;
+    border-radius: 45px;
+    background-color: #deebff;
+    line-height: 50px;
+    font-size: 2.5rem;
+    position: relative;
+    right: 11px;
+    color: #0065fc;
+}
+
+#AllPosts {
+    margin: var(--margin-g) 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: var(--padding-g);
+}

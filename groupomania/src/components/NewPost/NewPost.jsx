@@ -13,8 +13,10 @@ state = donnée propre au composant SAUF si passé en props
 */
 
 
+
 function NewPost() {
     const [userInput, setUserInput] = useState({ title: "", text: "" })
+    /// mettre un array
     const [errorInput, setErrorInput] = useState({ title: true, text: true })
 
     const onChange = (e) => {
@@ -86,7 +88,7 @@ function NewPost() {
 
 
     return (
-        < div className="cart__order" >
+        <section id="PostContainer">
             <form method="get" className="cart__order__form" onSubmit={handleSubmit}>
                 <div className="cart__order__form__question">
                     <label htmlFor="title">Titre: </label>
@@ -106,7 +108,7 @@ function NewPost() {
             </form>
 
             <p>{userInput.title}</p>
-        </div >
+        </section>
     )
 }
 

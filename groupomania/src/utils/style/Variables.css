@@ -1,0 +1,14 @@
+:root {
+    --primary: #FD2D01;
+    --secondary: #FFD7D7;
+    --tertiary: #4E5166;
+    --white: #ffffff;
+
+    /* Global margin */
+    --margin-g: 15px;
+    --margin-l: 5px;
+
+    /* Global padding */
+    --padding-g: 15px;
+    --margin-l: 5px
+}

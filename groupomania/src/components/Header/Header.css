@@ -1,5 +1,17 @@
-.style_cornichon {
-    width: 100%;
-    background-color: khaki;
-    margin: 100px 0px;
+header {
+    border: 1px green solid;
+    background-color: var(--white);
+    padding: var(--padding-g);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--margin-g);
 }
+
+.MainLogo {
+    display: block;
+    width: 30%;
+    border: 1px green solid;
+}
+
+nav {}

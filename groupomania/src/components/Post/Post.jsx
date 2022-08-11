@@ -1,15 +1,25 @@
 // import PropTypes from 'prop-types'
-// import DefaultPicture from '../../assets/profile.png'
+import DefaultPicture from '../../assets/profile.png'
 
 
 function Post({ title, text, likes, dislikes }) {
     return (
-        <div className="post">
-            <h2>{title}</h2>
-            <p>{text}</p>
-            <p>{likes}</p>
-            <p>{dislikes}</p>
-        </div>
+        <article className="Post">
+
+            <div className="Post__Side">
+                <img src={DefaultPicture} alt="" />
+                <div className="Likes">
+                    <i class="fa-solid fa-thumbs-up">{likes}</i>
+                    <i class="fa-solid fa-thumbs-down">{dislikes}</i>
+                </div>
+            </div>
+
+            <div className="Post__Main">
+                <h2>{title}</h2>
+                <p>{text}</p>
+            </div>
+
+        </article>
     )
 }
 

@@ -1,6 +1,7 @@
 import Post from '../../components/Post/Post'
 import { Loader } from '../../utils/style/Atoms'
 import { useFetch } from '../../utils/Hooks/Hooks'
+import "./AllPosts.css"
 
 
 const Allposts = () => {
@@ -16,7 +17,7 @@ const Allposts = () => {
 
   return (
 
-    <div>
+    <section id="AllPosts">
       {data.length === 0 ?
         <p>Il n'y a aucun post à afficher, commencez le partage !</p>
         :
@@ -30,7 +31,7 @@ const Allposts = () => {
           />
         ))
       }
-    </div>
+    </section>
   )
 
 }
