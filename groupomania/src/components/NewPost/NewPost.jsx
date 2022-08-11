@@ -89,14 +89,15 @@ function NewPost() {
 
     return (
         <section id="PostContainer">
-            <form method="get" className="cart__order__form" onSubmit={handleSubmit}>
-                <div className="cart__order__form__question">
+            <form method="get" className="post__form" onSubmit={handleSubmit}>
+                <div className="post__form__title">
                     <label htmlFor="title">Titre: </label>
                     <input type="text" name="title" id="title" maxLength={10} placeholder="Le titre de votre publication" className="infobulle" aria-label="texte à afficher" value={userInput.title} onChange={onChange} required />
+
                     <p id="titleErrorMsg"></p>
                     {/* <Error propsTitleInput={titleInput} /> */}
                 </div>
-                <div className="cart__order__form__question">
+                <div className="post__form__text">
                     <label htmlFor="text">Message: </label>
                     <input type="text" name="text" id="text" maxLength={100} placeholder="Partagez votre expérience" value={userInput.text} onChange={onChange} required />
                     <p id="textErrorMsg"></p>
@@ -106,6 +107,18 @@ function NewPost() {
                     <input type="submit" value="Publier" id="publish" />
                 </div>
             </form>
+
+
+            {/* <form method="post" enctype="multipart/form-data">
+                <div>
+                    <label for="profile_pic">Sélectionnez le fichier à utiliser</label>
+                    <input type="file" id="profile_pic" name="profile_pic"
+                        accept=".jpg, .jpeg, .png" />
+                </div>
+                <div>
+                    <button>Envoyer</button>
+                </div>
+            </form> */}
 
             <p>{userInput.title}</p>
         </section>
