@@ -18,6 +18,7 @@ function NewPost() {
     const [userInput, setUserInput] = useState({ title: "", text: "" })
     /// mettre un array
     const [errorInput, setErrorInput] = useState({ title: true, text: true })
+    const [file, setFile] = useState(null)
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -31,44 +32,51 @@ function NewPost() {
         console.log("User input", userInput)
     }
 
-    useEffect(() => { // this hook will get called everytime when myArr has changed
-        // perform some action which will get fired everytime when myArr gets updated
-        console.log('Updated State', userInput)
-    }, [userInput], [setUserInput])
+    const handlePicture = (e) => {
+        // setPostPicture(URL.createObjectURL(e.target.files[0]))
+        setFile(e.target.files[0]);
+        console.log("Photo OK")
+    }
+
+    const keysUserInput = Object.keys(userInput);
+    const checkRegex = async () => {
+        keysUserInput.forEach(element => {
+            if (Regex(userInput[element], "text")) {
+                setErrorInput(prevState => ({
+                    ...prevState,
+                    [element]: false
+                }))
+            } else {
+                setErrorInput(prevState => ({
+                    ...prevState,
+                    [element]: true
+                }))
+            }
+            console.log("Error Input", errorInput)
+        });
+        return (
+            console.log("Check Regex is OK")
+        )
+    }
+
+    useEffect(() => {
+        checkRegex()
+    }, [userInput])
 
     const handleSubmit = event => {
         event.preventDefault();
-        const keysUserInput = Object.keys(userInput);
+
         // const valuesUserInput = Object.values(userInput);
 
 
         // itére userInput avec chaque clé de keysUserInput, pour définir si des erreurs de Regex existent.
-        const checkRegex = async () => {
-            keysUserInput.forEach(element => {
-                if (Regex(userInput[element], "text")) {
-                    setErrorInput(prevState => ({
-                        ...prevState,
-                        [element]: false
-                    }))
-                } else {
-                    setErrorInput(prevState => ({
-                        ...prevState,
-                        [element]: true
-                    }))
-                }
-                console.log("Error Input", errorInput)
-            });
-            return (
-                console.log("Check Regex is OK")
-            )
-        }
 
         let promise = new Promise((resolve, reject) => {
             checkRegex()
                 .then((res) => {
                     // successfully got data
                     console.log("j'ai la data")
-                    errorInput.text === false && errorInput.title === false ? (console.log("Envoi API")) : (console.log("Can't publish with Regex error !"))
+                    errorInput.text === false && errorInput.title === false ? (Publish(userInput, file)) : (console.log("Can't publish with Regex error !"))
                     resolve(res);
                 })
                 .catch((err) => {
@@ -86,10 +94,12 @@ function NewPost() {
         console.log("Error Input", errorInput)
     }
 
+    // method was GET (all ok), now POST (??), enctype necessary ?
+
 
     return (
         <section id="PostContainer">
-            <form method="get" className="post__form" onSubmit={handleSubmit}>
+            <form method="post" enctype="multipart/form-data" className="post__form" onSubmit={handleSubmit}>
                 <div className="post__form__title">
                     <label htmlFor="title">Titre: </label>
                     <input type="text" name="title" id="title" maxLength={10} placeholder="Le titre de votre publication" className="infobulle" aria-label="texte à afficher" value={userInput.title} onChange={onChange} required />
@@ -103,22 +113,19 @@ function NewPost() {
                     <p id="textErrorMsg"></p>
                     {/* <Error propsTextInput={textInput} /> */}
                 </div>
+
+                <div>
+                    <label for="profile_pic">Sélectionnez le fichier à utiliser</label>
+                    <input type="file" id="file-upload" name="file"
+                        accept=".jpg, .jpeg, .png" onChange={(e) => handlePicture(e)} />
+                </div>
+
                 <div className="cart__order__form__submit">
                     <input type="submit" value="Publier" id="publish" />
                 </div>
             </form>
 
 
-            {/* <form method="post" enctype="multipart/form-data">
-                <div>
-                    <label for="profile_pic">Sélectionnez le fichier à utiliser</label>
-                    <input type="file" id="profile_pic" name="profile_pic"
-                        accept=".jpg, .jpeg, .png" />
-                </div>
-                <div>
-                    <button>Envoyer</button>
-                </div>
-            </form> */}
 
             <p>{userInput.title}</p>
         </section>
