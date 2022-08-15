@@ -124,10 +124,6 @@ function NewPost() {
                     <input type="submit" value="Publier" id="publish" />
                 </div>
             </form>
-
-
-
-            <p>{userInput.title}</p>
         </section>
     )
 }

@@ -8,7 +8,7 @@ import colors from './utils/style/colors'
 import './utils/style/Normalize.css'
 import { Link } from 'react-router-dom'
 import Signup from './pages/Auth/Signup'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 const App = () => {
     // const [currentUser, setCurrentUser] = useState();
@@ -20,7 +20,7 @@ const App = () => {
     // }, []);
 
     return (
-        <BrowserRouter>
+        <Router>
             <Fragment>
                 <GlobalStyle />
                 <div className="container">
@@ -28,17 +28,23 @@ const App = () => {
                     <div className="container-center">
                         <ToolBar />
                         <main>
-                            <NewPost />
-                            <Allposts />
+                            <Switch>
+                                <Route exact path="/">
+                                    <NewPost />
+                                    <Allposts />
+                                </Route>
+                                <Route path="/Signup">
+                                    <Signup />
+                                </Route>
+                            </Switch>
                         </main>
                     </div>
-                    <Signup />
                     <Footer />
                 </div>
                 {/* <TestApi currentUser={currentUser} /> */}
                 {/* <TestApi /> */}
             </Fragment>
-        </BrowserRouter>
+        </Router>
     )
 }
 

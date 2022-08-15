@@ -9,7 +9,7 @@ function Header() {
         <header>
             <img className="MainLogo" src={LightLogo} alt="Logo de Groupomania" />
             <nav>
-                <Link to="/Signup">Signup ué</Link> |{" "}
+                <Link to="/Signup">Signup</Link> |{" "}
                 <Link to="/">Accueil</Link> |{" "}
             </nav>
         </header>
