@@ -28,6 +28,7 @@ const Allposts = () => {
             text={machin.text}
             likes={machin.likes}
             dislikes={machin.dislikes}
+            imageUrl={machin.imageUrl}
           />
         ))
       }

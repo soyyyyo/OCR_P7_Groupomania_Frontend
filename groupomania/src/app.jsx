@@ -3,14 +3,15 @@ import { Fragment, useEffect, useState } from 'react'
 // import Header from './components/Header/Header'
 import { Header, TestApi, Post, Connexion, Error, Footer, Inscription, Nav, NewPost, Profile, ToolBar } from "./components"
 import Allposts from './pages/Allposts/Allposts'
+import Signup from './pages/Auth/Signup'
 import GlobalStyle from './utils/style/GlobalStyle'
 import colors from './utils/style/colors'
 import './utils/style/Normalize.css'
-
+import { Link } from 'react-router-dom'
 
 const App = () => {
     // const [currentUser, setCurrentUser] = useState();
-
+    // 
     // useEffect(() => {
     //     // const currentUser = getCurrentUser();
     //     const user = { id: 2, role: "admin" };
@@ -29,6 +30,7 @@ const App = () => {
                         <Allposts />
                     </main>
                 </div>
+                <Signup />
                 <Footer />
             </div>
             {/* <TestApi currentUser={currentUser} /> */}

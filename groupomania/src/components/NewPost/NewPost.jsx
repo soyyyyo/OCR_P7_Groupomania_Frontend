@@ -12,8 +12,6 @@ string, objet...
 state = donnée propre au composant SAUF si passé en props
 */
 
-
-
 function NewPost() {
     const [userInput, setUserInput] = useState({ title: "", text: "" })
     /// mettre un array
@@ -27,9 +25,6 @@ function NewPost() {
         setUserInput((userInput) => {
             return { ...userInput, [name]: value }
         })
-        console.log("L'input à changé !")
-        console.log("Active user target", e.target.value)
-        console.log("User input", userInput)
     }
 
     const handlePicture = (e) => {
@@ -38,6 +33,8 @@ function NewPost() {
         console.log("Photo OK")
     }
 
+
+    // itére userInput avec chaque clé de keysUserInput, pour définir si des erreurs de Regex existent.
     const keysUserInput = Object.keys(userInput);
     const checkRegex = async () => {
         keysUserInput.forEach(element => {
@@ -59,29 +56,32 @@ function NewPost() {
         )
     }
 
+
+    // force la mise à jour du useState de l'inuput utilisateur
     useEffect(() => {
         checkRegex()
     }, [userInput])
 
+
+
     const handleSubmit = event => {
         event.preventDefault();
-
         // const valuesUserInput = Object.values(userInput);
-
-
-        // itére userInput avec chaque clé de keysUserInput, pour définir si des erreurs de Regex existent.
-
         let promise = new Promise((resolve, reject) => {
             checkRegex()
                 .then((res) => {
-                    // successfully got data
-                    console.log("j'ai la data")
-                    errorInput.text === false && errorInput.title === false ? (Publish(userInput, file)) : (console.log("Can't publish with Regex error !"))
+                    if (errorInput.text === false &&
+                        errorInput.title === false &&
+                        file != null) {
+                        Publish(userInput, file)
+                    } else {
+                        console.log("Can't publish with Regex error !")
+                    }
                     resolve(res);
+                    // errorInput.text === false && errorInput.title === false ? (Publish(userInput, file)) : (console.log("Can't publish with Regex error !"))
+                    // resolve(res);
                 })
                 .catch((err) => {
-                    // an error occured
-                    console.log("j'ai PAS la data")
                     reject(err);
                 });
         });

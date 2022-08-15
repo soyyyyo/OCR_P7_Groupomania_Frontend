@@ -1,6 +1,7 @@
 import React from "react"
 import './Header.css'
 import LightLogo from '../../assets/logos/icon-left-font-adj.png'
+import { Link } from "react-router-dom"
 
 
 function Header() {
@@ -8,8 +9,8 @@ function Header() {
         <header>
             <img className="MainLogo" src={LightLogo} alt="Logo de Groupomania" />
             <nav>
-                <a href="http://localhost:3000/">Se connecter</a>
-                <a href="http://localhost:3000/">Les posts</a>
+                <Link to="/Signup">Signup ué</Link> |{" "}
+                <Link to="/">Accueil</Link> |{" "}
             </nav>
         </header>
     )
