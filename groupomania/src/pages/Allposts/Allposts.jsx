@@ -23,14 +23,17 @@ const Allposts = () => {
       {data.length === undefined ? // ou === 0 pour dire qu'il n'existe aucun post
         <p>Veuillez créer un compte ou vous connecter.</p>
         :
-        data?.map((machin, index) => (
+        data?.map((post, index) => (
           <Post
-            key={`${machin.userId}-${index}`}
-            title={machin.title}
-            text={machin.text}
-            likes={machin.likes}
-            dislikes={machin.dislikes}
-            imageUrl={machin.imageUrl}
+            key={`${post.userId}-${index}`}
+            title={post.title}
+            text={post.text}
+            likes={post.likes}
+            dislikes={post.dislikes}
+            imageUrl={post.imageUrl}
+            userId={post.userId}
+            postId={post._id}
+            date={post.date}
           />
         ))
       }

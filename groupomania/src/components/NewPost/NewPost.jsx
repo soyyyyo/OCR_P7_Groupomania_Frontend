@@ -4,6 +4,9 @@ import Regex from "../../utils/Regex";
 import { useEffect, useState } from "react";
 import './NewPost.css'
 import Error from "./Error"
+import { useContext } from "react";
+import { UidContext } from "../../components/AppContext/AppContext";
+
 
 /*
 props = parent vers enfant
@@ -13,7 +16,8 @@ state = donnée propre au composant SAUF si passé en props
 */
 
 function NewPost() {
-    const [userInput, setUserInput] = useState({ title: "", text: "" })
+    const uid = useContext(UidContext)
+    const [userInput, setUserInput] = useState({ title: "", text: "", userId: uid })
     /// mettre un array
     const [errorInput, setErrorInput] = useState({ title: true, text: true })
     const [file, setFile] = useState(null)

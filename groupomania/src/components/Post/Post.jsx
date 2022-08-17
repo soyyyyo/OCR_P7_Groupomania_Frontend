@@ -1,8 +1,42 @@
 // import PropTypes from 'prop-types'
 import DefaultPicture from '../../assets/profile.png'
+import { useContext } from "react";
+import { UidContext } from "../../components/AppContext/AppContext";
+import axios from "axios";
 
 
-function Post({ title, text, likes, dislikes, imageUrl }) {
+
+function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date }) {
+    const uid = useContext(UidContext)
+    // const chouette = new Date().toLocaleDateString()
+    const chouette = date.toLocalDateString("fr")
+
+    const handleDelete = () => {
+        const token = localStorage.getItem('token')
+        console.log("post id is:", postId)
+        axios({
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            method: "delete",
+            url: `${process.env.REACT_APP_API_URL}api/posts/${postId}`,
+            withCredentials: false,
+        })
+            .then((res) => {
+                if (res.data.error) {
+                    console.log(res);
+                } else {
+                    // window.location = `/`;
+                    console.log(res.data);
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    }
+
+
     return (
         <article className="Post">
 
@@ -18,8 +52,19 @@ function Post({ title, text, likes, dislikes, imageUrl }) {
                 <div className="Post__Main">
                     <h2>{title}</h2>
                     <p>{text}</p>
+                    <p>user id is: {userId}</p>
                 </div>
             </div>
+
+            {
+                uid === userId ? (
+                    <div className="Post__Config" onClick={handleDelete} >DELETE</div>
+                ) : (
+                    null
+                )
+            }
+
+            <p>posté le {chouette}</p>
 
             <div className="Post__Down">
                 <img class="Post__Picture" src={imageUrl} alt="the post" />
