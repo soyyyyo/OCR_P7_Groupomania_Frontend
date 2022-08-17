@@ -5,12 +5,22 @@ export function useFetch(url) {
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
-  useEffect(() => {
+  useEffect((props) => {
+    const token = localStorage.getItem('token')
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    }
+
+
     if (!url) return
     setLoading(true)
     async function fetchData() {
       try {
-        const response = await fetch(url)
+        const response = await fetch(url, requestOptions)
         const data = await response.json()
         setData(data)
       } catch (err) {

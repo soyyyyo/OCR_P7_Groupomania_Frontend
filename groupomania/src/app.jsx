@@ -10,6 +10,7 @@ import './utils/style/Normalize.css'
 import { Link } from 'react-router-dom'
 import Signup from './pages/Auth/Signup'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { UidContext } from './components/AppContext/AppContext'
 
 const App = () => {
     // const [currentUser, setCurrentUser] = useState();
@@ -20,35 +21,45 @@ const App = () => {
     //     setCurrentUser(user);
     // }, []);
 
+    const [uid, setUid] = useState(null)
+
+    useEffect(() => {
+        setUid(localStorage.getItem('userId'))
+        console.log("uid from app.jsx is:", uid)
+    }, [uid])
+
+
     return (
-        <Router>
-            <Fragment>
-                <GlobalStyle />
-                <div className="container">
-                    <Header />
-                    <div className="container-center">
-                        <ToolBar />
-                        <main>
-                            <Switch>
-                                <Route exact path="/">
-                                    <NewPost />
-                                    <Allposts />
-                                </Route>
-                                <Route path="/Signup">
-                                    <Signup />
-                                </Route>
-                                <Route path="/Profil">
-                                    <Profil />
-                                </Route>
-                            </Switch>
-                        </main>
+        <UidContext.Provider value={uid}>
+            <Router>
+                <Fragment>
+                    <GlobalStyle />
+                    <div className="container">
+                        <Header />
+                        <div className="container-center">
+                            <ToolBar />
+                            <main>
+                                <Switch>
+                                    <Route exact path="/">
+                                        <NewPost />
+                                        <Allposts />
+                                    </Route>
+                                    <Route path="/Signup">
+                                        <Signup />
+                                    </Route>
+                                    <Route path="/Profil">
+                                        <Profil />
+                                    </Route>
+                                </Switch>
+                            </main>
+                        </div>
+                        <Footer />
                     </div>
-                    <Footer />
-                </div>
-                {/* <TestApi currentUser={currentUser} /> */}
-                {/* <TestApi /> */}
-            </Fragment>
-        </Router>
+                    {/* <TestApi currentUser={currentUser} /> */}
+                    {/* <TestApi /> */}
+                </Fragment>
+            </Router>
+        </UidContext.Provider>
     )
 }
 

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Auth from "../../utils/Auth"
+// import Auth from "./Headers"
 
 const SignInForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userId, setUserId] = useState('');
-    const [token, setToken] = useState('');
+    // const [userId, setUserId] = useState('');
+    // const [token, setToken] = useState('');
+
 
 
     const handleLogin = (e) => {
@@ -33,10 +34,20 @@ const SignInForm = () => {
                     // need de creer des erreurs différentes via errors.utils.js et auth.controller.js du projet mern
                 } else {
                     // window.location = `/`;
-                    console.log("connexion page valide")
-                    console.log(res)
-                    setUserId(res.data.userId)
-                    setToken(res.data.token)
+                    console.log("connexion page valide");
+                    console.log(res);
+
+                    console.log("token received:", res.data.token);
+
+                    // <Headers tokenIs={res.data.token} />
+                    // console.log(Headers());
+
+                    // setUserId(res.data.userId);
+                    // setToken(res.data.token);
+
+                    // transmet le userId et token au local storage
+                    localStorage.setItem('userId', res.data.userId);
+                    localStorage.setItem('token', res.data.token);
                 }
             })
             .catch((err) => {

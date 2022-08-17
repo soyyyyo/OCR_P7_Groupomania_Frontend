@@ -18,8 +18,10 @@ const Allposts = () => {
   return (
 
     <section id="AllPosts">
-      {data.length === 0 ?
-        <p>Il n'y a aucun post à afficher, commencez le partage !</p>
+
+
+      {data.length === undefined ? // ou === 0 pour dire qu'il n'existe aucun post
+        <p>Veuillez créer un compte ou vous connecter.</p>
         :
         data?.map((machin, index) => (
           <Post
@@ -32,6 +34,8 @@ const Allposts = () => {
           />
         ))
       }
+
+
     </section>
   )
 
