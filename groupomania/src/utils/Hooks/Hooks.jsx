@@ -7,6 +7,7 @@ export function useFetch(url) {
 
   useEffect((props) => {
     const token = sessionStorage.getItem('token')
+
     const requestOptions = {
       method: 'GET',
       headers: {
@@ -15,7 +16,6 @@ export function useFetch(url) {
       }
     }
 
-
     if (!url) return
     setLoading(true)
     async function fetchData() {
@@ -23,6 +23,7 @@ export function useFetch(url) {
         const response = await fetch(url, requestOptions)
         const data = await response.json()
         setData(data)
+        ////
       } catch (err) {
         console.log(err)
         setError(true)

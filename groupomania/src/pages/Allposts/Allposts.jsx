@@ -5,24 +5,38 @@ import "./AllPosts.css"
 
 
 const Allposts = () => {
-  const { data, isLoading, error } = useFetch(
+  // fetch les data de l'API
+  let { data, isLoading, error } = useFetch(
     `http://localhost:4200/api/posts`
   )
 
-  console.log("data from fetch allpost : ", data)
+  console.log("les datas sont:", data)
 
-  if (error) {
+
+  if (data.error) {
     return <span>Veuillez créer un compte ou vous connecter.</span>
   }
+
+  // tri l'array d'objet en sens antichronologique
+  data.sort(function (x, y) {
+    var firstDate = x.date,
+      secondDate = y.date;
+
+    if (firstDate < secondDate) return 1;
+    if (firstDate > secondDate) return -1;
+    return 0;
+  });
+
 
   return (
 
     <section id="AllPosts">
 
-
+      {/* affichage si aucune donnée ou si l'api refuse l'accés faute d'authentification */}
       {data.length === 0 || data.length === undefined ? // ou === 0 pour dire qu'il n'existe aucun post
         <p>Aucune donnée à afficher, soyez le premier à publier !</p>
         :
+        // itère les données reçues vers le modèle Post (props?). Défini ce qui est donc transvasé
         data?.map((post, index) => (
           <Post
             key={`${post.userId}-${index}`}

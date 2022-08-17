@@ -9,7 +9,7 @@ import axios from "axios";
 function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date }) {
     const uid = useContext(UidContext)
 
-    let chouette = new Intl.DateTimeFormat('fr-FR', {
+    let dateInFormat = new Intl.DateTimeFormat('fr-FR', {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
@@ -64,14 +64,14 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date }) 
             </div>
 
             {
-                uid === userId ? (
+                uid === userId ? ( // debug mode || uid
                     <div className="Post__Config" onClick={handleDelete} >DELETE</div>
                 ) : (
                     null
                 )
             }
 
-            <p>posté le {chouette}</p>
+            <p>posté le {dateInFormat}</p>
 
             <div className="Post__Down">
                 <img class="Post__Picture" src={imageUrl} alt="the post" />
