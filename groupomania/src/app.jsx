@@ -1,8 +1,9 @@
 import { Fragment, useEffect, useState } from 'react'
 // impoter les bons noms de pages/composants
 // import Header from './components/Header/Header'
-import { Header, TestApi, Post, Connexion, Error, Footer, Inscription, Nav, NewPost, Profile, ToolBar } from "./components"
+import { Header, TestApi, Post, Connexion, Error, Footer, Inscription, Nav, NewPost, ToolBar } from "./components"
 import Allposts from './pages/Allposts/Allposts'
+import Profil from './pages/Profil/Profil'
 import GlobalStyle from './utils/style/GlobalStyle'
 import colors from './utils/style/colors'
 import './utils/style/Normalize.css'
@@ -35,6 +36,9 @@ const App = () => {
                                 </Route>
                                 <Route path="/Signup">
                                     <Signup />
+                                </Route>
+                                <Route path="/Profil">
+                                    <Profil />
                                 </Route>
                             </Switch>
                         </main>
