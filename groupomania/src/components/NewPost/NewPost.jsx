@@ -16,8 +16,8 @@ state = donnée propre au composant SAUF si passé en props
 */
 
 function NewPost() {
-    const uid = useContext(UidContext)
-    const [userInput, setUserInput] = useState({ title: "", text: "", userId: uid })
+    const uid = sessionStorage.getItem("userId")
+    const [userInput, setUserInput] = useState({ title: "", text: "", userId: uid, date: Date.now() })
     /// mettre un array
     const [errorInput, setErrorInput] = useState({ title: true, text: true })
     const [file, setFile] = useState(null)

@@ -8,11 +8,18 @@ import axios from "axios";
 
 function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date }) {
     const uid = useContext(UidContext)
-    // const chouette = new Date().toLocaleDateString()
-    const chouette = date.toLocalDateString("fr")
+
+    let chouette = new Intl.DateTimeFormat('fr-FR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    }).format(date)
 
     const handleDelete = () => {
-        const token = localStorage.getItem('token')
+        const token = sessionStorage.getItem('token')
         console.log("post id is:", postId)
         axios({
             headers: {

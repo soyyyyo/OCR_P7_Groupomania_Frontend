@@ -12,7 +12,7 @@ const Allposts = () => {
   console.log("data from fetch allpost : ", data)
 
   if (error) {
-    return <span>Il y a un problème</span>
+    return <span>Veuillez créer un compte ou vous connecter.</span>
   }
 
   return (
@@ -20,8 +20,8 @@ const Allposts = () => {
     <section id="AllPosts">
 
 
-      {data.length === undefined ? // ou === 0 pour dire qu'il n'existe aucun post
-        <p>Veuillez créer un compte ou vous connecter.</p>
+      {data.length === 0 || data.length === undefined ? // ou === 0 pour dire qu'il n'existe aucun post
+        <p>Aucune donnée à afficher, soyez le premier à publier !</p>
         :
         data?.map((post, index) => (
           <Post

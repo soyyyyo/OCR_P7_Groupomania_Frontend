@@ -6,7 +6,7 @@ export function useFetch(url) {
   const [error, setError] = useState(false)
 
   useEffect((props) => {
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
     const requestOptions = {
       method: 'GET',
       headers: {

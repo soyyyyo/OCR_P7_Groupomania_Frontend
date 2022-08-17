@@ -24,7 +24,7 @@ const App = () => {
     const [uid, setUid] = useState(null)
 
     useEffect(() => {
-        setUid(localStorage.getItem('userId'))
+        setUid(sessionStorage.getItem('userId'))
         console.log("uid from app.jsx is:", uid)
     }, [uid])
 

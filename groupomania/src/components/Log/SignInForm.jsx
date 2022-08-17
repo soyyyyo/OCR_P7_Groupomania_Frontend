@@ -46,13 +46,14 @@ const SignInForm = () => {
                     // setToken(res.data.token);
 
                     // transmet le userId et token au local storage
-                    localStorage.setItem('userId', res.data.userId);
-                    localStorage.setItem('token', res.data.token);
+                    sessionStorage.setItem('userId', res.data.userId);
+                    sessionStorage.setItem('token', res.data.token);
                 }
             })
             .catch((err) => {
                 console.log(err)
             });
+
     };
 
 
