@@ -9,6 +9,15 @@ import axios from "axios";
 function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date }) {
     const uid = useContext(UidContext)
 
+    const allAccess = () => {
+        if (uid === userId ||
+            uid === "62fd100b4a0e8ffcebb652d1") { // cacher cette variable quelque part
+            return true
+        } else {
+            return false ///
+        }
+    }
+
     let dateInFormat = new Intl.DateTimeFormat('fr-FR', {
         year: 'numeric',
         month: '2-digit',
@@ -20,15 +29,19 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date }) 
 
     const handleDelete = () => {
         const token = sessionStorage.getItem('token')
+        const userId = sessionStorage.getItem('userId')
         console.log("post id is:", postId)
         axios({
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
             },
             method: "delete",
             url: `${process.env.REACT_APP_API_URL}api/posts/${postId}`,
             withCredentials: false,
+            data: {
+                userId: userId
+            }
         })
             .then((res) => {
                 if (res.data.error) {
@@ -40,7 +53,13 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date }) 
             })
             .catch((err) => {
                 console.log(err)
+                console.log(err.data)
+                console.log(err.message)
             });
+    }
+
+    const handleEdit = () => {
+        console.log("banana")
     }
 
 
@@ -59,13 +78,15 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date }) 
                 <div className="Post__Main">
                     <h2>{title}</h2>
                     <p>{text}</p>
-                    <p>user id is: {userId}</p>
                 </div>
             </div>
 
             {
-                uid === userId ? ( // debug mode || uid
-                    <div className="Post__Config" onClick={handleDelete} >DELETE</div>
+                allAccess() ? (
+                    <div className="Post_Config">
+                        <div className="Post__Delete" onClick={handleDelete} >SUPPRIMER</div>
+                        <div className="Post__Edit" onClick={handleEdit} >EDITER</div>
+                    </div>
                 ) : (
                     null
                 )
