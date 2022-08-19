@@ -48,6 +48,8 @@ const Allposts = () => {
             userId={post.userId}
             postId={post._id}
             date={post.date}
+            usersLiked={post.usersLiked}
+            usersDisliked={post.usersDisliked}
           />
         ))
       }
