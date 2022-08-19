@@ -12,7 +12,7 @@ const Regex = (value, type) => {
         return valid;
         // Type adresse: lettres, accents et chiffres autorisés, entre 5 et 100 caractéres
     } if (type === "address") {
-        const addressRegexp = /^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\s-]{5,1000}$/i;
+        const addressRegexp = /^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\s-]{5,50}$/i;
         const valid = addressRegexp.test(value);
         return valid;
     }

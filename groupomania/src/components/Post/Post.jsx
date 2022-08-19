@@ -164,41 +164,48 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
     return (
         <article className="Post">
 
-
-
-
-
-            <div className="Post__Up">
-                <div className="Post__Side">
-                    <img className="Post__Profile-Pic" src={DefaultPicture} alt="" />
-                    <div className="Likes">
-                        <button value="1" onClick={e => handleLike(e.target.value)} className="fa-solid fa-thumbs-up like-btn">{likes}</button>
-                        <button value="-1" onClick={e => handleLike(e.target.value)} className="fa-solid fa-thumbs-down dislike-btn">{dislikes}</button>
-                    </div>
+            <div className="Post__Side-Pannel">
+                <img className="Post__Profile-Pic" src={DefaultPicture} alt="" />
+                <div className="Likes Post__Config">
+                    <button value="1" onClick={e => handleLike(e.target.value)} className="fa-solid fa-thumbs-up like-btn">{likes}</button>
+                    <button value="-1" onClick={e => handleLike(e.target.value)} className="fa-solid fa-thumbs-down dislike-btn">{dislikes}</button>
                 </div>
+                {
+                    allAccess() ? (
+                        <div className="Post__Config">
+                            <button className='Post__Delete fa-solid fa-trash' onClick={handleDelete}></button>
+                            <button className='Post__Edit fa-solid fa-wrench' onClick={handleEdit}></button>
+                        </div>
+                    ) : (
+                        null
+                    )
+                }
+            </div>
+
+            <div className="Post__Main-Pannel">
+                <div className="Post__Header">
+                    <p>Diego LeBeau</p>
+                    <p>posté le {dateInFormat}</p>
+                </div>
+
 
                 <div className="Post__Main">
                     <h2>{title}</h2>
                     <p>{text}</p>
                 </div>
+
+                <div className="Post__Image-Container">
+                    <img className="Post__Picture" src={imageUrl} alt="the post" />
+                </div>
+
             </div>
 
-            {
-                allAccess() ? (
-                    <div className="Post_Config">
-                        <div className="Post__Delete" onClick={handleDelete} >SUPPRIMER</div>
-                        <div className="Post__Edit" onClick={handleEdit} >EDITER</div>
-                    </div>
-                ) : (
-                    null
-                )
-            }
 
-            <p>posté le {dateInFormat}</p>
 
-            <div className="Post__Down">
-                <img className="Post__Picture" src={imageUrl} alt="the post" />
-            </div>
+
+
+
+
 
 
         </article>
