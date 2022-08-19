@@ -28,7 +28,7 @@ const Signup = () => {
     return (
 
         <section id="Signup-in">
-            <form method="post" enctype="multipart/form-data" className="post__form" onSubmit={handleSubmit}>
+            <form method="post" encType="multipart/form-data" className="post__form" onSubmit={handleSubmit}>
 
                 <div className="post__form__title">
                     <label htmlFor="user">Adresse e-mail </label>

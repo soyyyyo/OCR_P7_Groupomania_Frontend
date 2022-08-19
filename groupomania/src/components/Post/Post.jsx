@@ -164,9 +164,13 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
     return (
         <article className="Post">
 
+
+
+
+
             <div className="Post__Up">
                 <div className="Post__Side">
-                    <img class="Post__Profile-Pic" src={DefaultPicture} alt="" />
+                    <img className="Post__Profile-Pic" src={DefaultPicture} alt="" />
                     <div className="Likes">
                         <button value="1" onClick={e => handleLike(e.target.value)} className="fa-solid fa-thumbs-up like-btn">{likes}</button>
                         <button value="-1" onClick={e => handleLike(e.target.value)} className="fa-solid fa-thumbs-down dislike-btn">{dislikes}</button>
@@ -193,7 +197,7 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
             <p>posté le {dateInFormat}</p>
 
             <div className="Post__Down">
-                <img class="Post__Picture" src={imageUrl} alt="the post" />
+                <img className="Post__Picture" src={imageUrl} alt="the post" />
             </div>
 
 

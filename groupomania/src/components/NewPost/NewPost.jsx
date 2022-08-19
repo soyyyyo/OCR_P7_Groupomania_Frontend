@@ -103,7 +103,7 @@ function NewPost() {
 
     return (
         <section id="PostContainer">
-            <form method="post" enctype="multipart/form-data" className="post__form" onSubmit={handleSubmit}>
+            <form method="post" encType="multipart/form-data" className="post__form" onSubmit={handleSubmit}>
                 <div className="post__form__title">
                     <label htmlFor="title">Titre: </label>
                     <input type="text" name="title" id="title" maxLength={10} placeholder="Le titre de votre publication" className="infobulle" aria-label="texte à afficher" value={userInput.title} onChange={onChange} required />
@@ -119,7 +119,7 @@ function NewPost() {
                 </div>
 
                 <div>
-                    <label for="profile_pic">Sélectionnez le fichier à utiliser</label>
+                    <label htmlFor="profile_pic">Sélectionnez le fichier à utiliser</label>
                     <input type="file" id="file-upload" name="file"
                         accept=".jpg, .jpeg, .png" onChange={(e) => handlePicture(e)} />
                 </div>
