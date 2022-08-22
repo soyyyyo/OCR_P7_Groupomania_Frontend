@@ -15,6 +15,10 @@ const Regex = (value, type) => {
         const addressRegexp = /^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\s-]{5,50}$/i;
         const valid = addressRegexp.test(value);
         return valid;
+    } if (type === "message") {
+        const addressRegexp = /^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\s-]{5,50}$/i;
+        const valid = addressRegexp.test(value);
+        return valid;
     }
 }
 

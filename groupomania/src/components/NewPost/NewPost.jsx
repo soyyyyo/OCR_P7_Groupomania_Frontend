@@ -106,14 +106,14 @@ function NewPost() {
             <form method="post" encType="multipart/form-data" className="post__form" onSubmit={handleSubmit}>
                 <div className="post__form__title">
                     <label htmlFor="title">Titre: </label>
-                    <input type="text" name="title" id="title" maxLength={50} placeholder="Le titre de votre publication" className="infobulle" aria-label="texte à afficher" value={userInput.title} onChange={onChange} required />
+                    <input type="text-area" name="title" id="title" maxLength={50} placeholder="Le titre de votre publication" className="infobulle" aria-label="texte à afficher" value={userInput.title} onChange={onChange} required />
 
                     <p id="titleErrorMsg"></p>
                     {/* <Error propsTitleInput={titleInput} /> */}
                 </div>
                 <div className="post__form__text">
                     <label htmlFor="text">Message: </label>
-                    <input type="text" name="text" id="text" maxLength={1000} placeholder="Partagez votre expérience" value={userInput.text} onChange={onChange} required />
+                    <input type="text-area" rows="5" cols="33" name="text" id="text" maxLength={1000} placeholder="Partagez votre expérience" value={userInput.text} onChange={onChange} required />
                     <p id="textErrorMsg"></p>
                     {/* <Error propsTextInput={textInput} /> */}
                 </div>
@@ -128,6 +128,7 @@ function NewPost() {
                     <input type="submit" value="Publier" id="publish" />
                 </div>
             </form>
+
         </section>
     )
 }

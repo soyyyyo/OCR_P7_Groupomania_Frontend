@@ -10,12 +10,12 @@ import './Post.css'
 
 
 
-function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, usersLiked, usersDisliked }) {
+function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, usersLiked, usersDisliked, }) {
     const uid = useContext(UidContext)
     let likeValueToSend = 0;
     let isLiked = false
     let isDisliked = false
-
+    const postIdHtml = "post" + postId
 
     const allAccess = () => {
         if (uid === userId ||
@@ -68,6 +68,7 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
         console.log("banana")
     }
 
+
     const handleLike = (likeValue) => {
         likeValueUpdater(likeValue)
 
@@ -106,23 +107,28 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
     // met à jour le front concernant le CSS, le like/dislike array
     const likeValueUpdater = (likeValue) => {
         likeValueToSend = 0;
+
+        let postIdHtmlId = "post" + postId;
+        const likeDisplay = document.getElementById(postIdHtmlId).querySelector(".like-btn")
+        const dislikeDisplay = document.getElementById(postIdHtmlId).querySelector(".dislike-btn")
+
         if (isLiked === true) {
             // css rule to lighten up
             isLiked = false;
-            document.querySelector(".like-btn").innerHTML = `${--likes}`
+            likeDisplay.innerHTML = `${--likes}`
         } else if (isDisliked === true) {
             // css rule to lighten up
             isDisliked = false
-            document.querySelector(".dislike-btn").innerHTML = `${--dislikes}`
+            dislikeDisplay.innerHTML = `${--dislikes}`
         } else {
             // css rules to light nothing
             likeValueToSend = parseInt(likeValue)
             if (likeValueToSend === 1) {
                 isLiked = true;
-                document.querySelector(".like-btn").innerHTML = `${++likes}`
+                likeDisplay.innerHTML = `${++likes}`
             } else {
                 isDisliked = true;
-                document.querySelector(".dislike-btn").innerHTML = `${++dislikes}`
+                dislikeDisplay.innerHTML = `${++dislikes}`
             }
         }
         console.log("value sent: ", likeValueToSend, "isLiked: ", isLiked, "isDisliked: ", isDisliked)
@@ -162,7 +168,7 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
     */
 
     return (
-        <article className="Post">
+        <article className="Post" id={postIdHtml}>
 
             <div className="Post__Side-Pannel">
                 <img className="Post__Profile-Pic" src={DefaultPicture} alt="" />
