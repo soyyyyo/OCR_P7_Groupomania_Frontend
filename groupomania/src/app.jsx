@@ -50,6 +50,9 @@ const App = () => {
                                     <Route path="/Profil">
                                         <Profil />
                                     </Route>
+                                    <Route path="/EditPost">
+                                        <NewPost />
+                                    </Route>
                                 </Switch>
                             </main>
                         </div>

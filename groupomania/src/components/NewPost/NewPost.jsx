@@ -6,6 +6,10 @@ import './NewPost.css'
 import Error from "./Error"
 import { useContext } from "react";
 import { UidContext } from "../../components/AppContext/AppContext";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { useFetch } from "../../utils/Hooks/Hooks";
+
 
 
 /*
@@ -21,6 +25,8 @@ function NewPost() {
     /// mettre un array
     const [errorInput, setErrorInput] = useState({ title: true, text: true })
     const [file, setFile] = useState(null)
+
+
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -39,31 +45,49 @@ function NewPost() {
 
 
     // itére userInput avec chaque clé de keysUserInput, pour définir si des erreurs de Regex existent.
-    const keysUserInput = Object.keys(userInput);
-    const checkRegex = async () => {
-        keysUserInput.forEach(element => {
-            if (Regex(userInput[element], "text")) {
-                setErrorInput(prevState => ({
-                    ...prevState,
-                    [element]: false
-                }))
-            } else {
-                setErrorInput(prevState => ({
-                    ...prevState,
-                    [element]: true
-                }))
-            }
-            console.log("Error Input", errorInput)
-        });
-        return (
-            console.log("Check Regex is OK")
-        )
+    // const keysUserInput = Object.keys(userInput);
+    const checkRegex = async (data, type, key) => {
+        if (Regex(data, type)) {
+            setErrorInput(prevState => ({
+                ...prevState,
+                [key]: false
+            }))
+        } else {
+            setErrorInput(prevState => ({
+                ...prevState,
+                [key]: true
+            }))
+        }
+        console.log("Error Input", errorInput)
+
+
+
+        // keysUserInput.forEach(element => {
+        //     if (Regex(userInput[element], "text")) {
+        //         setErrorInput(prevState => ({
+        //             ...prevState,
+        //             [element]: false
+        //         }))
+        //     } else {
+        //         setErrorInput(prevState => ({
+        //             ...prevState,
+        //             [element]: true
+        //         }))
+        //     }
+        //     console.log("Error Input", errorInput)
+        // });
+        // return (
+        //     console.log("Check Regex is OK")
+        // )
     }
+
+
 
 
     // force la mise à jour du useState de l'inuput utilisateur
     useEffect(() => {
-        checkRegex()
+        checkRegex(userInput.title, "title", "title")
+        checkRegex(userInput.text, "text", "text")
     }, [userInput])
 
 
@@ -75,8 +99,7 @@ function NewPost() {
             checkRegex()
                 .then((res) => {
                     if (errorInput.text === false &&
-                        errorInput.title === false &&
-                        file != null) {
+                        errorInput.title === false) {
                         Publish(userInput, file)
                     } else {
                         console.log("Can't publish with Regex error !")

@@ -6,6 +6,10 @@ import axios from "axios";
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import './Post.css'
+import { Link } from 'react-router-dom';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import { useHistory } from "react-router-dom"
 
 
 
@@ -16,6 +20,8 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
     let isLiked = false
     let isDisliked = false
     const postIdHtml = "post" + postId
+    let history = useHistory();
+
 
     const allAccess = () => {
         if (uid === userId ||
@@ -34,6 +40,10 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
         minute: '2-digit',
         second: '2-digit'
     }).format(date)
+
+    // const goToNextLign = (string) => {
+    //     return string.replace(/(?:\r\n|\r|\n)/g, '<br></br>');
+    // }
 
     const handleDelete = () => {
         const token = sessionStorage.getItem('token')
@@ -65,7 +75,7 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
     }
 
     const handleEdit = () => {
-        console.log("banana")
+        history.push(`/EditPost/?id=${postId}&type=edit`)
     }
 
 
@@ -179,8 +189,21 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
                 {
                     allAccess() ? (
                         <div className="Post__Config">
-                            <button className='Post__Delete fa-solid fa-trash' onClick={handleDelete}></button>
+
+
+                            <Popup trigger={<button className='Post__Delete fa-solid fa-trash'></button>
+                            } position="right center">
+                                <div><p>Etes vous sur de vouloir supprimer ce post ?</p>
+                                    <p>Cette action est irreversible.</p>
+                                    <button className="continueDelete" onClick={handleDelete}>OUI</button>
+                                    <button className="cancelDelete">NON</button>
+                                </div>
+                            </Popup>
+
+
+
                             <button className='Post__Edit fa-solid fa-wrench' onClick={handleEdit}></button>
+
                         </div>
                     ) : (
                         null
@@ -197,23 +220,17 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
 
                 <div className="Post__Main">
                     <h2>{title}</h2>
-                    <p>{text}</p>
+                    <p style={{ whiteSpace: "pre-wrap" }}>{text}</p>
                 </div>
 
-                <div className="Post__Image-Container">
-                    <img className="Post__Picture" src={imageUrl} alt="the post" />
-                </div>
-
+                {
+                    imageUrl === null ? (null) : (
+                        <div className="Post__Image-Container">
+                            <img className="Post__Picture" src={imageUrl} alt="the post" />
+                        </div>
+                    )
+                }
             </div>
-
-
-
-
-
-
-
-
-
         </article>
     )
 }

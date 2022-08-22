@@ -7,9 +7,7 @@
 }
 
 .Post__Main-Pannel {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    width: 100%;
 }
 
 .Post__Header {
@@ -22,6 +20,9 @@
 .Post__Main {
     width: 100%;
     padding: var(--margin-g);
+    display: flex;
+    flex-direction: column;
+
 }
 
 .Post__Side-Pannel {
@@ -41,11 +42,11 @@ p {}
 
 .Post__Image-Container {
     display: flex;
-    margin: auto;
+    justify-content: center;
 }
 
 .Post__Picture {
-    max-width: 100%;
+    width: 100%;
     max-height: 600px;
 }
 

@@ -1,9 +1,9 @@
 
 const Regex = (value, type) => {
     // Type texte: lettres et accents uniquements, jusqu'à 31 caractéres
-    if (type === "text") {
-        const minRegexp = /^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\s-]{5,50}$/i;
-        const valid = minRegexp.test(value);
+    if (type === "title") {
+        const titleRegexp = /^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ?!,;:=+-_'`"€$£%^°&/§()\s-]{5,50}$/i;
+        const valid = titleRegexp.test(value);
         return valid;
         // Type email: vérifie le @, une extension de domaine, le double point etc...
     } if (type === "email") {
@@ -15,9 +15,9 @@ const Regex = (value, type) => {
         const addressRegexp = /^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\s-]{5,50}$/i;
         const valid = addressRegexp.test(value);
         return valid;
-    } if (type === "message") {
-        const addressRegexp = /^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\s-]{5,50}$/i;
-        const valid = addressRegexp.test(value);
+    } if (type === "text") {
+        const messageRegexp = /^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\s-]{10,1000}$/i;
+        const valid = messageRegexp.test(value);
         return valid;
     }
 }
