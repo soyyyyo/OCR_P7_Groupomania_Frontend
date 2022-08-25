@@ -12,3 +12,8 @@
 main {
     width: 80%;
 }
+
+/* Lien de nav */
+nav a {
+    font-size: var(--small-font);
+}

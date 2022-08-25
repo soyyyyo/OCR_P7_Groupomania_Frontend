@@ -19,8 +19,8 @@ const Allposts = () => {
 
   // tri l'array d'objet en sens antichronologique
   data.sort(function (x, y) {
-    var firstDate = x.date,
-      secondDate = y.date;
+    var firstDate = x.creationDate,
+      secondDate = y.creationDate;
 
     if (firstDate < secondDate) return 1;
     if (firstDate > secondDate) return -1;
@@ -47,7 +47,8 @@ const Allposts = () => {
             imageUrl={post.imageUrl}
             userId={post.userId}
             postId={post._id}
-            date={post.date}
+            creationDate={post.creationDate}
+            modificationDate={post.modificationDate}
             usersLiked={post.usersLiked}
             usersDisliked={post.usersDisliked}
           />

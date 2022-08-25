@@ -16,7 +16,7 @@ const Regex = (value, type) => {
         const valid = addressRegexp.test(value);
         return valid;
     } if (type === "text") {
-        const messageRegexp = /^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\s-]{10,1000}$/i;
+        const messageRegexp = /^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ?!,;:=+-_'`"€$£%^°&/§()\s-]{10,1000}$/i;
         const valid = messageRegexp.test(value);
         return valid;
     }

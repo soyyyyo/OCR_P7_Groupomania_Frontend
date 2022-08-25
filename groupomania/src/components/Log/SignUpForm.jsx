@@ -1,41 +1,64 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Regex from "../../utils/Regex";
+
 
 const SignUpForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
+
+    // const checkRegex = async (data, type, key) => {
+    //     if (Regex(data, type)) {
+    //         setErrorInput(prevState => ({
+    //             ...prevState,
+    //             [key]: false
+    //         }))
+    //     } else {
+    //         setErrorInput(prevState => ({
+    //             ...prevState,
+    //             [key]: true
+    //         }))
+    //     }
+    //     console.log("Error Input", errorInput)
+
+
 
     const handleLogin = (e) => {
         e.preventDefault();
         const emailError = document.querySelector(`.email-error`);
         // const passwordError = document.querySelector(`.password-error`);
 
-        console.log("email:", email, "password:", password)
+        if (!Regex(email, "email")) {
+            emailError.innerHTML = "veuillez vérifier votre adresse e-mail"
+        } else {
+            console.log("email:", email, "password:", password, "username:", username)
 
-        axios({
-            method: "post",
-            url: `${process.env.REACT_APP_API_URL}api/auth/signup`,
-            withCredentials: false,
-            data: {
-                email: email,
-                password: password,
-            }
-        })
-            .then((res) => {
-                if (res.data.error) {
-                    console.log(res);
-                    emailError.innerHTML = res.data.error;
-                    // passwordError.innerHTML = res.data.error.email;
-                    // need de creer des erreurs différentes via errors.utils.js et auth.controller.js du projet mern
-                } else {
-                    window.location = `/`;
+            axios({
+                method: "post",
+                url: `${process.env.REACT_APP_API_URL}api/auth/signup`,
+                withCredentials: false,
+                data: {
+                    email: email,
+                    password: password,
+                    username: username
                 }
             })
-            .catch((err) => {
-                console.log(err)
-            });
-    };
-
+                .then((res) => {
+                    if (res.data.error) {
+                        console.log(res);
+                        emailError.innerHTML = res.data.error;
+                        // passwordError.innerHTML = res.data.error.email;
+                        // need de creer des erreurs différentes via errors.utils.js et auth.controller.js du projet mern
+                    } else {
+                        window.location = `/`;
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+        };
+    }
 
 
     return (
@@ -61,6 +84,16 @@ const SignUpForm = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 value={password} />
             <div className="password-error"></div>
+            <br />
+            <label htmlFor="password">Nom d'utilisateur</label>
+            <br />
+            <input
+                type="text"
+                name="username"
+                id="username"
+                onChange={(e) => setUsername(e.target.value)}
+                value={username} />
+            <div className="username-error"></div>
             <br />
             <input
                 type="submit"

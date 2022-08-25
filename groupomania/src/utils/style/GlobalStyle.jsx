@@ -67,9 +67,9 @@ ul {
   padding-inline-start: 0px; /* -------------------------------------------------- */
 }
 
-nav a {
-  font-size: 1.8rem;
-}
+// nav a {
+//   font-size: 1.8rem;
+// }
 
 .container {
   max-width: 1300px;

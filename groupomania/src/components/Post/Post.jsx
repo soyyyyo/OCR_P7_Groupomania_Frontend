@@ -10,17 +10,24 @@ import { Link } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { useHistory } from "react-router-dom"
+import { useState } from 'react';
+import UpdatePost from './Update';
 
 
 
 
-function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, usersLiked, usersDisliked, }) {
+function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creationDate, modificationDate, usersLiked, usersDisliked, }) {
     const uid = useContext(UidContext)
     let likeValueToSend = 0;
     let isLiked = false
     let isDisliked = false
     const postIdHtml = "post" + postId
     let history = useHistory();
+    const [isUpdate, setIsUpdate] = useState(false)
+    const [userInputUpdate, setUserInputUpdate] = useState({ title: title, text: text, userId: uid, modificationDate: Date.now() })
+    const [file, setFile] = useState(null)
+
+
 
 
     const allAccess = () => {
@@ -32,14 +39,18 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
         }
     }
 
-    let dateInFormat = new Intl.DateTimeFormat('fr-FR', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-    }).format(date)
+    const dateToFormat = (date) => {
+        return (
+            new Intl.DateTimeFormat('fr-FR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            }).format(date)
+        )
+    }
 
     // const goToNextLign = (string) => {
     //     return string.replace(/(?:\r\n|\r|\n)/g, '<br></br>');
@@ -75,7 +86,8 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
     }
 
     const handleEdit = () => {
-        history.push(`/EditPost/?id=${postId}&type=edit`)
+        // history.push(`/EditPost/?id=${postId}&type=edit`)
+        setIsUpdate(!isUpdate)
     }
 
 
@@ -160,10 +172,30 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
     isLikedFromBack()
 
 
+    const updateInput = (e) => {
+        const { name, value } = e.target;
+        // setUserInput({ ...userInput, [name]: value })
+
+        setUserInputUpdate((userInput) => {
+            return { ...userInput, [name]: value }
+        })
+        console.log("nouvel input is", userInputUpdate)
+    }
+
+    const transferToApi = () => {
+        // <UpdatePost
+        // postId={postId}
+        // data={userInputUpdate} />
+        UpdatePost(postId, userInputUpdate, file)
+    }
 
 
 
-
+    const handlePicture = (e) => {
+        // setPostPicture(URL.createObjectURL(e.target.files[0]))
+        setFile(e.target.files[0]);
+        console.log("Photo OK")
+    }
 
 
     // useEffect(() => {
@@ -214,22 +246,69 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, date, us
             <div className="Post__Main-Pannel">
                 <div className="Post__Header">
                     <p>Diego LeBeau</p>
-                    <p>posté le {dateInFormat}</p>
+                    <div className="Post__Dates">
+                        <p>posté le {dateToFormat(creationDate)}</p>
+                        {modificationDate != null ? (
+                            <p>dernière modification le {dateToFormat(modificationDate)}</p>) : (null)}
+                    </div>
                 </div>
 
 
-                <div className="Post__Main">
-                    <h2>{title}</h2>
-                    <p style={{ whiteSpace: "pre-wrap" }}>{text}</p>
-                </div>
 
-                {
+
+                {isUpdate === true ? (
+                    <div className="Post__Main">
+                        <input
+                            type="text"
+                            name="title"
+                            defaultValue={title}
+                            maxLength={50}
+                            onChange={updateInput}
+
+                        />
+                        <textarea
+                            defaultValue={text}
+                            name="text"
+                            maxLength={1000}
+                            onChange={updateInput}
+                            className="Fit-Hundred"
+                        />
+                        <button className="update-post" onClick={transferToApi}>Valider les modifications</button>
+                    </div>
+
+                ) : (
+                    <div className="Post__Main">
+                        <h2>{title}</h2>
+                        <p style={{ whiteSpace: "pre-wrap" }}>{text}</p>
+                    </div>
+                )}
+
+                {/* <p style={{ whiteSpace: "pre-wrap" }}>{text}</p> */}
+
+
+                {isUpdate === true ? (
+                    <div className="Post__Image-Edit">
+                        <div>
+                            <label htmlFor="post_pic">Sélectionnez le fichier à utiliser</label>
+                            <br></br>
+                            <input type="file" id="file-upload" name="file"
+                                accept=".jpg, .jpeg, .png" onChange={(e) => handlePicture(e)} />
+                        </div>
+
+                        <div className="Post__Image-Container Flex__Column">
+                            <p>Image actuelle:</p>
+                            <img className="Post__Picture__Small" src={imageUrl} alt="the post" />
+                        </div>
+
+                    </div>
+                ) : (
                     imageUrl === null ? (null) : (
                         <div className="Post__Image-Container">
                             <img className="Post__Picture" src={imageUrl} alt="the post" />
                         </div>
                     )
-                }
+                )}
+
             </div>
         </article>
     )

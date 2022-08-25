@@ -2,7 +2,7 @@
     border: 1px black solid;
     border-radius: 25px;
     padding: 10px 20px;
-    background: var(--secondary);
+    background: #FFF4F3;
     display: flex
 }
 
@@ -10,9 +10,15 @@
     width: 100%;
 }
 
+label {
+    font-size: var(--small-font);
+}
+
 #title {
     width: 100%;
     padding: var(--padding-g);
+    border-radius: 10px;
+    font-size: var(--medium-font);
 }
 
 #text {
@@ -20,5 +26,43 @@
     min-width: 100%;
     height: 150px;
     padding: var(--padding-g);
+    border-radius: 10px;
+    font-size: var(--medium-font);
 
+}
+
+#file-upload {
+    font-size: var(--small-font);
+}
+
+.cart__order__form__submit {
+    font-size: var(--medium-font);
+    padding-right: var(--padding-g);
+}
+
+.post__form__upload {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#publish {
+    border-radius: 10px;
+    padding: var(--padding-l);
+    background-color: var(--secondary);
+}
+
+#file-upload {
+    border-radius: 10px;
+    padding: var(--padding-l);
+    background-color: var(--secondary);
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--padding-g);
+    padding: var(--padding-l);
 }

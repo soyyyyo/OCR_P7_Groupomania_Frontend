@@ -21,7 +21,7 @@ state = donnée propre au composant SAUF si passé en props
 
 function NewPost() {
     const uid = sessionStorage.getItem("userId")
-    const [userInput, setUserInput] = useState({ title: "", text: "", userId: uid, date: Date.now() })
+    const [userInput, setUserInput] = useState({ title: "", text: "", userId: uid, creationDate: Date.now() })
     /// mettre un array
     const [errorInput, setErrorInput] = useState({ title: true, text: true })
     const [file, setFile] = useState(null)
@@ -141,14 +141,17 @@ function NewPost() {
                     {/* <Error propsTextInput={textInput} /> */}
                 </div>
 
-                <div>
-                    <label htmlFor="profile_pic">Sélectionnez le fichier à utiliser</label>
-                    <input type="file" id="file-upload" name="file"
-                        accept=".jpg, .jpeg, .png" onChange={(e) => handlePicture(e)} />
-                </div>
+                <div className="post__form__upload">
+                    <div>
+                        <label htmlFor="post_pic">Sélectionnez le fichier à utiliser</label>
+                        <br></br>
+                        <input type="file" id="file-upload" name="file"
+                            accept=".jpg, .jpeg, .png" onChange={(e) => handlePicture(e)} />
+                    </div>
 
-                <div className="cart__order__form__submit">
-                    <input type="submit" value="Publier" id="publish" />
+                    <div className="cart__order__form__submit">
+                        <input type="submit" value="Publier" id="publish" />
+                    </div>
                 </div>
             </form>
 

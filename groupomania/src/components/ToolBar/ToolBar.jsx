@@ -3,9 +3,12 @@ import './ToolBar.css'
 
 
 function ToolBar() {
+    const username = sessionStorage.getItem('username')
+
     return (
         <section id="ToolBar">
-            <h4>TOOLBAR HERE</h4>
+            <p>Vous êtes connecté en tant que:</p>
+            <h4>{username}</h4>
         </section>
     )
 }
