@@ -8,6 +8,7 @@ import Signout from "../Log/Signout";
 
 function Header() {
     const uid = useContext(UidContext)
+
     return (
         <header>
             <img className="MainLogo" src={LightLogo} alt="Logo de Groupomania" />

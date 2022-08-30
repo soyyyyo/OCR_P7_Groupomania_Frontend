@@ -8,22 +8,6 @@ const SignUpForm = () => {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
 
-    // const checkRegex = async (data, type, key) => {
-    //     if (Regex(data, type)) {
-    //         setErrorInput(prevState => ({
-    //             ...prevState,
-    //             [key]: false
-    //         }))
-    //     } else {
-    //         setErrorInput(prevState => ({
-    //             ...prevState,
-    //             [key]: true
-    //         }))
-    //     }
-    //     console.log("Error Input", errorInput)
-
-
-
     const handleLogin = (e) => {
         e.preventDefault();
         const emailError = document.querySelector(`.email-error`);
@@ -72,7 +56,8 @@ const SignUpForm = () => {
                 name="email"
                 id="email"
                 onChange={(e) => setEmail(e.target.value)}
-                value={email} />
+                value={email}
+                required />
             <div className="email-error"></div>
             <br />
             <label htmlFor="password">Password</label>
@@ -82,7 +67,8 @@ const SignUpForm = () => {
                 name="password"
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
-                value={password} />
+                value={password}
+                required />
             <div className="password-error"></div>
             <br />
             <label htmlFor="password">Nom d'utilisateur</label>
@@ -92,7 +78,8 @@ const SignUpForm = () => {
                 name="username"
                 id="username"
                 onChange={(e) => setUsername(e.target.value)}
-                value={username} />
+                value={username}
+                required />
             <div className="username-error"></div>
             <br />
             <input

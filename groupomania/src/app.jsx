@@ -28,7 +28,6 @@ const App = () => {
         console.log("uid from app.jsx is:", uid)
     }, [uid])
 
-
     return (
         <UidContext.Provider value={uid}>
             <Router>
@@ -40,10 +39,24 @@ const App = () => {
                             <ToolBar />
                             <main>
                                 <Switch>
-                                    <Route exact path="/">
+                                    {/* <Route exact path="/">
                                         <NewPost />
                                         <Allposts />
+                                    </Route> */}
+
+                                    <Route exact path="/">
+                                        {uid ?
+                                            <div>
+                                                <NewPost />
+                                                <Allposts />
+                                            </div>
+                                            : null}
                                     </Route>
+
+                                    {/* <Route exact path="/" element={uid ? (<Allposts />) : (<NewPost />)} /> */}
+
+
+
                                     <Route path="/Signup">
                                         <Signup />
                                     </Route>

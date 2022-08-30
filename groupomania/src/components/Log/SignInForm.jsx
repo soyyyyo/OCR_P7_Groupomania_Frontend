@@ -40,7 +40,7 @@ const SignInForm = () => {
                     sessionStorage.setItem('userId', res.data.userId);
                     sessionStorage.setItem('token', res.data.token);
                     sessionStorage.setItem('username', res.data.username);
-                    // window.location = `/`;
+                    window.location = `/`;
                     // history.push("/"); // mais ne veut pas changer uid
 
                 }
@@ -64,7 +64,8 @@ const SignInForm = () => {
                 name="email"
                 id="email"
                 onChange={(e) => setEmail(e.target.value)}
-                value={email} />
+                value={email}
+                required />
             <div className="email-error"></div>
             <br />
             <label htmlFor="password">Password</label>
@@ -74,7 +75,8 @@ const SignInForm = () => {
                 name="password"
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
-                value={password} />
+                value={password}
+                required />
             <div className="password-error"></div>
             <br />
             <input
