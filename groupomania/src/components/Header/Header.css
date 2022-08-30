@@ -1,5 +1,4 @@
 header {
-    border: 1px green solid;
     background-color: var(--white);
     padding: var(--padding-g);
     display: flex;
@@ -11,7 +10,6 @@ header {
 .MainLogo {
     display: block;
     width: 30%;
-    border: 1px green solid;
 }
 
 nav {}

@@ -50,7 +50,7 @@ const App = () => {
                                                 <NewPost />
                                                 <Allposts />
                                             </div>
-                                            : null}
+                                            : <Profil />}
                                     </Route>
 
                                     {/* <Route exact path="/" element={uid ? (<Allposts />) : (<NewPost />)} /> */}

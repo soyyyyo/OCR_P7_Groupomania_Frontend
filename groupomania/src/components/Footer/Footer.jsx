@@ -6,7 +6,13 @@ import LightLogo from '../../assets/logos/icon-left-font-adj.png'
 function Footer() {
     return (
         <footer>
-            <h4>Coucou c'est moi le footer fou !</h4>
+
+            <ul>
+                <li>Plan du site</li>
+                <li>Mentions légales</li>
+                <li>Contact</li>
+            </ul>
+
         </footer>
     )
 }

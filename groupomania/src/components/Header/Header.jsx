@@ -19,10 +19,7 @@ function Header() {
                     <Link to="/">Accueil</Link>
                 </nav>
             ) : (
-                <nav>
-                    <Link to="/Profil">Connexion / Inscription</Link> |{" "}
-                    <Link to="/">Accueil</Link>
-                </nav>)}
+                null)}
 
         </header>
     )

@@ -1,0 +1,5 @@
+#ToolBar {
+    width: 20%;
+    border: 1px dashed var(--secondary);
+    margin-right: var(--margin-g);
+}

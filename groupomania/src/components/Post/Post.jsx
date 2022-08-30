@@ -3,15 +3,13 @@ import DefaultPicture from '../../assets/profile.png'
 import { useContext } from "react";
 import { UidContext } from "../../components/AppContext/AppContext";
 import axios from "axios";
-import { useEffect } from 'react';
-import { useRef } from 'react';
 import './Post.css'
-import { Link } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { useHistory } from "react-router-dom"
 import { useState } from 'react';
 import UpdatePost from './Update';
+import dateToFormat from '../../utils/DateToFormat';
 
 
 
@@ -28,8 +26,6 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
     const [file, setFile] = useState(null)
 
 
-
-
     const allAccess = () => {
         if (uid === userId ||
             uid === "62fd100b4a0e8ffcebb652d1") { // cacher cette variable quelque part
@@ -38,23 +34,6 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
             return false ///
         }
     }
-
-    const dateToFormat = (date) => {
-        return (
-            new Intl.DateTimeFormat('fr-FR', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            }).format(date)
-        )
-    }
-
-    // const goToNextLign = (string) => {
-    //     return string.replace(/(?:\r\n|\r|\n)/g, '<br></br>');
-    // }
 
     const handleDelete = () => {
         const token = sessionStorage.getItem('token')
@@ -128,29 +107,33 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
     // décide alors de la valeur (-1, 0, 1) à envoyer au back
     // met à jour le front concernant le CSS, le like/dislike array
     const likeValueUpdater = (likeValue) => {
-        likeValueToSend = 0;
-
+        // Chemin d'accés des boutons like/dislike dans le HTML
         let postIdHtmlId = "post" + postId;
         const likeDisplay = document.getElementById(postIdHtmlId).querySelector(".like-btn")
         const dislikeDisplay = document.getElementById(postIdHtmlId).querySelector(".dislike-btn")
-
+        likeValueToSend = 0;
+        // si le post est liké, on retire le like. (retour au neutre)
         if (isLiked === true) {
-            // css rule to lighten up
             isLiked = false;
             likeDisplay.innerHTML = `${--likes}`
+            likeDisplay.classList.remove("active-like-button")
         } else if (isDisliked === true) {
-            // css rule to lighten up
+            // si le post est disliké, on retire le dislike (retour au neutre)
             isDisliked = false
             dislikeDisplay.innerHTML = `${--dislikes}`
+            dislikeDisplay.classList.remove("active-dislike-button")
         } else {
-            // css rules to light nothing
             likeValueToSend = parseInt(likeValue)
             if (likeValueToSend === 1) {
+                // si la valeur est de 1, on rajoute un like
                 isLiked = true;
                 likeDisplay.innerHTML = `${++likes}`
+                likeDisplay.classList.add("active-like-button")
             } else {
+                // si la valeur est de -1, on rajoute un dislike
                 isDisliked = true;
                 dislikeDisplay.innerHTML = `${++dislikes}`
+                dislikeDisplay.classList.add("active-dislike-button")
             }
         }
         console.log("value sent: ", likeValueToSend, "isLiked: ", isLiked, "isDisliked: ", isDisliked)
@@ -160,10 +143,10 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
     const isLikedFromBack = () => {
         if (usersLiked.includes(uid)) {
             isLiked = true
-            // css style
+            // likeDisplay.classList.add("like-active-button");
         } else if (usersDisliked.includes(uid)) {
             isDisliked = true
-            // css style
+            // dislikeDisplay.classList.add("dislike-active-button");
         } else {
             isLiked = false;
             isDisliked = false;
@@ -183,16 +166,10 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
     }
 
     const transferToApi = () => {
-        // <UpdatePost
-        // postId={postId}
-        // data={userInputUpdate} />
         UpdatePost(postId, userInputUpdate, file)
     }
 
-
-
     const handlePicture = (e) => {
-        // setPostPicture(URL.createObjectURL(e.target.files[0]))
         setFile(e.target.files[0]);
         console.log("Photo OK")
     }
@@ -203,39 +180,37 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
     // }, [])
 
 
-    /*
-    CHARGEMENT PAGE
-    already liked ? > affichage css
-    
-    */
-
     return (
         <article className="Post" id={postIdHtml}>
 
             <div className="Post__Side-Pannel">
                 <img className="Post__Profile-Pic" src={DefaultPicture} alt="" />
                 <div className="Likes Post__Config">
-                    <button value="1" onClick={e => handleLike(e.target.value)} className="fa-solid fa-thumbs-up like-btn">{likes}</button>
-                    <button value="-1" onClick={e => handleLike(e.target.value)} className="fa-solid fa-thumbs-down dislike-btn">{dislikes}</button>
+                    <button
+                        value="1"
+                        onClick={e => handleLike(e.target.value)}
+                        className={isLiked ? "fa-solid fa-thumbs-up like-btn active-like-button" : "fa-solid fa-thumbs-up like-btn"}
+                    // className="fa-solid fa-thumbs-up like-btn"
+                    >{likes}</button>
+                    <button value="-1"
+                        onClick={e => handleLike(e.target.value)}
+                        className={isDisliked ? "fa-solid fa-thumbs-down dislike-btn active-dislike-button" : "fa-solid fa-thumbs-down dislike-btn"}
+                    >{dislikes}</button>
                 </div>
                 {
                     allAccess() ? (
                         <div className="Post__Config">
-
-
-                            <Popup trigger={<button className='Post__Delete fa-solid fa-trash'></button>
-                            } position="right center">
-                                <div><p>Etes vous sur de vouloir supprimer ce post ?</p>
+                            <Popup trigger=
+                                {<button className='Post__Delete fa-solid fa-trash'></button>}
+                                position="right center">
+                                <div>
+                                    <p>Etes vous sur de vouloir supprimer ce post ?</p>
                                     <p>Cette action est irreversible.</p>
                                     <button className="continueDelete" onClick={handleDelete}>OUI</button>
                                     <button className="cancelDelete">NON</button>
                                 </div>
                             </Popup>
-
-
-
                             <button className='Post__Edit fa-solid fa-wrench' onClick={handleEdit}></button>
-
                         </div>
                     ) : (
                         null
@@ -259,21 +234,22 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
                 {isUpdate === true ? (
                     <div className="Post__Main">
                         <input
+                            className="title-input"
                             type="text"
                             name="title"
                             defaultValue={title}
                             maxLength={50}
                             onChange={updateInput}
-
                         />
+                        <br />
                         <textarea
                             defaultValue={text}
                             name="text"
                             maxLength={1000}
                             onChange={updateInput}
-                            className="Fit-Hundred"
+                            className="Fit-Hundred text-input"
                         />
-                        <button className="update-post" onClick={transferToApi}>Valider les modifications</button>
+                        <button className="publish-button" onClick={transferToApi}>Valider les modifications</button>
                     </div>
 
                 ) : (
@@ -283,13 +259,11 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
                     </div>
                 )}
 
-                {/* <p style={{ whiteSpace: "pre-wrap" }}>{text}</p> */}
-
 
                 {isUpdate === true ? (
                     <div className="Post__Image-Edit">
                         <div>
-                            <label htmlFor="post_pic">Sélectionnez le fichier à utiliser</label>
+                            <label htmlFor="post_pic">Souhaitez vous modifier l'image ?</label>
                             <br></br>
                             <input type="file" id="file-upload" name="file"
                                 accept=".jpg, .jpeg, .png" onChange={(e) => handlePicture(e)} />

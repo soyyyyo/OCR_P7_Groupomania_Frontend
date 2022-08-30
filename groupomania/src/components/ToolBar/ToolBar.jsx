@@ -18,7 +18,11 @@ function ToolBar() {
                 </Fragment>
             ) : (
                 <Fragment>
-                    <p>Veuillez vous connecter.</p>
+                    <p>Bienvenu sur votre réseau d'entreprise.</p>
+                    <br />
+                    <p>Cette plateforme est uniquement à destination des emloyé(e)s.</p>
+                    <br />
+                    <p>Veuillez vous connecter afin d'accéder aux contenus.</p>
                 </Fragment>
             )}
 

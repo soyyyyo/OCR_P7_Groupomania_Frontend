@@ -1,3 +1,15 @@
 footer {
-    border: 1px green solid;
+    margin-top: var(--margin-g);
+    border: 1px dashed var(--secondary);
+}
+
+footer ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+footer li {
+    font-size: var(--medium-font);
+    cursor: pointer;
 }

@@ -80,7 +80,8 @@ p {}
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: var(--margin-g)
+    padding: var(--margin-g);
+    column-gap: 30px;
 }
 
 .Post__Config {
@@ -107,4 +108,22 @@ p {}
 button {
     border: 0px;
     background-color: none;
+}
+
+.active-like-button {
+    color: green;
+}
+
+.active-dislike-button {
+    color: red;
+}
+
+.Post__Delete:hover {
+    color: var(--primary);
+    transition: 200ms;
+}
+
+.Post__Edit:hover {
+    color: blue;
+    transition: 200ms;
 }
