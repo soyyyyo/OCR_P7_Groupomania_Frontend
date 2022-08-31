@@ -36,6 +36,7 @@ const SignInForm = () => {
                     sessionStorage.setItem('userId', res.data.userId);
                     sessionStorage.setItem('token', res.data.token);
                     sessionStorage.setItem('username', res.data.username);
+                    sessionStorage.setItem('isAdmin', res.data.isAdmin);
                     window.location = `/`;
                     // history.push("/"); // mais ne veut pas changer uid
 

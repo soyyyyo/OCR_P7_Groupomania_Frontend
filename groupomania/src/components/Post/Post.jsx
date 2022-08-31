@@ -23,10 +23,14 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, username, postId
     const [userInputUpdate, setUserInputUpdate] = useState({ title: title, text: text, userId: uid, modificationDate: Date.now() })
     const [file, setFile] = useState(null)
 
+    // uid === "62fd100b4a0e8ffcebb652d1"
+
+
 
     const allAccess = () => {
-        if (uid === userId ||
-            uid === "62fd100b4a0e8ffcebb652d1") { // cacher cette variable quelque part
+        if (
+            sessionStorage.getItem('isAdmin') === "true" || uid === userId
+        ) {
             return true
         } else {
             return false ///
