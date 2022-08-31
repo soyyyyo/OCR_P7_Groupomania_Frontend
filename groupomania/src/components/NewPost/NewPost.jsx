@@ -53,7 +53,7 @@ function NewPost() {
             }))
         }
         // ligne suivante: permet le controle des erreurs lors du dev
-        // console.log("Error Input", errorInput)
+        console.log("Error Input", errorInput)
     }
 
 
@@ -76,7 +76,9 @@ function NewPost() {
                         Publish(userInput, file)
                         resolve(res);
                     } else {
-                        console.log("Can't publish with Regex error !")
+                        console.log("Can't publish with Regex error !");
+                        errorInput.title === true && (document.getElementById("titleErrorMsg").innerHTML = "Vérifiez votre saisie, minimum 5 caractères, les aractères spéciaux autorisés sont: ?!,;:=+-_'`€$£%^°&/§()");
+                        errorInput.text === true && (document.getElementById("textErrorMsg").innerHTML = "Vérifiez votre saisie, minimum 10 caractères, les aractères spéciaux autorisés sont: ?!,;:=+-_'`€$£%^°&/§()");
                     }
                 })
                 .catch((err) => {
