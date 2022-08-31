@@ -46,6 +46,7 @@ const Allposts = () => {
             dislikes={post.dislikes}
             imageUrl={post.imageUrl}
             userId={post.userId}
+            username={post.username}
             postId={post._id}
             creationDate={post.creationDate}
             modificationDate={post.modificationDate}

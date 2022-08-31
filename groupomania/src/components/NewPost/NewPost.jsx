@@ -11,41 +11,35 @@ import axios from "axios";
 import { useFetch } from "../../utils/Hooks/Hooks";
 
 
-
-/*
-props = parent vers enfant
-string, objet...
-
-state = donnée propre au composant SAUF si passé en props
-*/
-
 function NewPost() {
     const uid = sessionStorage.getItem("userId")
-    const [userInput, setUserInput] = useState({ title: "", text: "", userId: uid, creationDate: Date.now() })
-    /// mettre un array
+    const [userInput, setUserInput] = useState({
+        title: "",
+        text: "",
+        userId: uid,
+        username: sessionStorage.getItem('username'),
+        creationDate: Date.now()
+    })
     const [errorInput, setErrorInput] = useState({ title: true, text: true })
     const [file, setFile] = useState(null)
 
 
-
+    // surveille les champs inputs et met à jour l'input utilisateur
     const onChange = (e) => {
         const { name, value } = e.target;
-        // setUserInput({ ...userInput, [name]: value })
-
         setUserInput((userInput) => {
             return { ...userInput, [name]: value }
         })
     }
 
+    // stock l'image qui sera à uploader
     const handlePicture = (e) => {
-        // setPostPicture(URL.createObjectURL(e.target.files[0]))
         setFile(e.target.files[0]);
         console.log("Photo OK")
     }
 
 
     // itére userInput avec chaque clé de keysUserInput, pour définir si des erreurs de Regex existent.
-    // const keysUserInput = Object.keys(userInput);
     const checkRegex = async (data, type, key) => {
         if (Regex(data, type)) {
             setErrorInput(prevState => ({
@@ -58,33 +52,12 @@ function NewPost() {
                 [key]: true
             }))
         }
-        console.log("Error Input", errorInput)
-
-
-
-        // keysUserInput.forEach(element => {
-        //     if (Regex(userInput[element], "text")) {
-        //         setErrorInput(prevState => ({
-        //             ...prevState,
-        //             [element]: false
-        //         }))
-        //     } else {
-        //         setErrorInput(prevState => ({
-        //             ...prevState,
-        //             [element]: true
-        //         }))
-        //     }
-        //     console.log("Error Input", errorInput)
-        // });
-        // return (
-        //     console.log("Check Regex is OK")
-        // )
+        // ligne suivante: permet le controle des erreurs lors du dev
+        // console.log("Error Input", errorInput)
     }
 
 
-
-
-    // force la mise à jour du useState de l'inuput utilisateur
+    // force la mise à jour du useState de l'input utilisateur en interrogeant la fonction Regexp
     useEffect(() => {
         checkRegex(userInput.title, "title", "title")
         checkRegex(userInput.text, "text", "text")
@@ -101,21 +74,15 @@ function NewPost() {
                     if (errorInput.text === false &&
                         errorInput.title === false) {
                         Publish(userInput, file)
+                        resolve(res);
                     } else {
                         console.log("Can't publish with Regex error !")
                     }
-                    resolve(res);
-                    // errorInput.text === false && errorInput.title === false ? (Publish(userInput, file)) : (console.log("Can't publish with Regex error !"))
-                    // resolve(res);
                 })
                 .catch((err) => {
                     reject(err);
                 });
         });
-
-        // errorInput === [0, 0] ?
-        //     (Publish(titleInput, textInput))
-        //     : (console.log("un champ regex n'est pas ok"));
 
         console.log("User Input", userInput)
         console.log("Error Input", errorInput)
@@ -134,7 +101,7 @@ function NewPost() {
                         name="title"
                         id="title"
                         className="title-input"
-                        maxLength={50}
+                        maxLength={70}
                         placeholder="Le titre de votre publication"
                         aria-label="texte à afficher"
                         value={userInput.title}
@@ -173,7 +140,6 @@ function NewPost() {
                     </div>
                 </div>
             </form>
-
         </section>
     )
 }

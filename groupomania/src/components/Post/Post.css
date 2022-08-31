@@ -58,6 +58,7 @@ p {}
 .Post__Picture {
     width: 100%;
     max-height: 600px;
+    object-fit: contain;
 }
 
 .Post__Picture__Small {
@@ -112,10 +113,12 @@ button {
 
 .active-like-button {
     color: green;
+    transition: 250ms;
 }
 
 .active-dislike-button {
     color: red;
+    transition: 250ms;
 }
 
 .Post__Delete:hover {

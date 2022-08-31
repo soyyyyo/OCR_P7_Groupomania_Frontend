@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-// import Auth from "./Headers"
 import { useHistory } from "react-router-dom"
 
 const SignInForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [userId, setUserId] = useState('');
-    // const [token, setToken] = useState('');
     let history = useHistory();
 
 

@@ -6,7 +6,6 @@ import axios from "axios";
 import './Post.css'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-import { useHistory } from "react-router-dom"
 import { useState } from 'react';
 import UpdatePost from './Update';
 import dateToFormat from '../../utils/DateToFormat';
@@ -14,13 +13,12 @@ import dateToFormat from '../../utils/DateToFormat';
 
 
 
-function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creationDate, modificationDate, usersLiked, usersDisliked, }) {
+function Post({ title, text, likes, dislikes, imageUrl, userId, username, postId, creationDate, modificationDate, usersLiked, usersDisliked, }) {
     const uid = useContext(UidContext)
     let likeValueToSend = 0;
     let isLiked = false
     let isDisliked = false
     const postIdHtml = "post" + postId
-    let history = useHistory();
     const [isUpdate, setIsUpdate] = useState(false)
     const [userInputUpdate, setUserInputUpdate] = useState({ title: title, text: text, userId: uid, modificationDate: Date.now() })
     const [file, setFile] = useState(null)
@@ -55,7 +53,7 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
                 if (res.data.error) {
                     console.log(res);
                 } else {
-                    // window.location = `/`;
+                    window.location.href = `http://localhost:3000/`;
                     console.log(res.data);
                 }
             })
@@ -64,10 +62,14 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
             });
     }
 
+
+    // toggle du mode édition de post
+    // si passé dans le HTML: génére une infinite loop (à gérer)
     const handleEdit = () => {
-        // history.push(`/EditPost/?id=${postId}&type=edit`)
         setIsUpdate(!isUpdate)
     }
+
+
 
 
     const handleLike = (likeValue) => {
@@ -139,7 +141,9 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
         console.log("value sent: ", likeValueToSend, "isLiked: ", isLiked, "isDisliked: ", isDisliked)
     }
 
-    // défini de manière boolean si l'utilisateur a déja like/dislike ce post auparavant
+
+
+    // défini de manière boolean si l'utilisateur a déja like/dislike ce post auparavant, et attribue le CSS approprié (via le return html)
     const isLikedFromBack = () => {
         if (usersLiked.includes(uid)) {
             isLiked = true
@@ -155,29 +159,31 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
     isLikedFromBack()
 
 
+
+    // variables contenant les nouvelles données du post à modifier
     const updateInput = (e) => {
         const { name, value } = e.target;
-        // setUserInput({ ...userInput, [name]: value })
-
         setUserInputUpdate((userInput) => {
             return { ...userInput, [name]: value }
         })
         console.log("nouvel input is", userInputUpdate)
     }
 
+
+
+    // gère la soumission du formulaire de modification d'un post
+    // le faire via la HTML du return opérait un envoi api à chaque frappe...
     const transferToApi = () => {
         UpdatePost(postId, userInputUpdate, file)
     }
 
+
+
+    // stock l'image avant le nouvel envoi API, si changement d'image.
     const handlePicture = (e) => {
         setFile(e.target.files[0]);
         console.log("Photo OK")
     }
-
-
-    // useEffect(() => {
-    //     alreadyLiked()
-    // }, [])
 
 
     return (
@@ -220,7 +226,7 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
 
             <div className="Post__Main-Pannel">
                 <div className="Post__Header">
-                    <p>Diego LeBeau</p>
+                    <p>{username}</p>
                     <div className="Post__Dates">
                         <p>posté le {dateToFormat(creationDate)}</p>
                         {modificationDate != null ? (
@@ -238,7 +244,7 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, postId, creation
                             type="text"
                             name="title"
                             defaultValue={title}
-                            maxLength={50}
+                            maxLength={70}
                             onChange={updateInput}
                         />
                         <br />

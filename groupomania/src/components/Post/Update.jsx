@@ -30,8 +30,8 @@ const UpdatePost = (postId, data, image) => {
                         const data = await response.json();
                         // Réponse envoyée par l'API contenant l'orderId
                         console.log(data);
-                        // Redirection vers la page Confirmation
-                        // window.location.href = `http://localhost:3000/`;
+                        // Redirection vers la page d'acceuil pour recharger les data
+                        window.location.href = `http://localhost:3000/`;
                     }
                 }
                 catch (error) {
