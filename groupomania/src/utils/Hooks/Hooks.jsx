@@ -1,6 +1,7 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 
 export function useFetch(url) {
+  // is loading pour le loading spinner non incorporé actuellement
   const [data, setData] = useState([])
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(false)

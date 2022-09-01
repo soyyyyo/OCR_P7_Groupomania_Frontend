@@ -1,6 +1,5 @@
 import React from "react"
 import './Footer.css'
-import LightLogo from '../../assets/logos/icon-left-font-adj.png'
 
 
 function Footer() {

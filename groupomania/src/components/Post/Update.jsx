@@ -1,4 +1,3 @@
-import React from "react";
 
 const UpdatePost = (postId, data, image) => {
     console.log("post id:", postId, "data", data)

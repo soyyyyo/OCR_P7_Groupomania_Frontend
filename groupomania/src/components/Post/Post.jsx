@@ -43,7 +43,7 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, username, postId
                 'Authorization': `Bearer ${token}`,
             },
             method: "delete",
-            url: `${process.env.REACT_APP_API_URL}api/posts/${postId}`,
+            url: `http://localhost:4200/api/posts/${postId}`,
             withCredentials: false,
             data: {
                 userId: userId
@@ -84,7 +84,7 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, username, postId
                 'Authorization': `Bearer ${token}`,
             },
             method: "post",
-            url: `${process.env.REACT_APP_API_URL}api/posts/${postId}/like`,
+            url: `http://localhost:4200/api/posts/${postId}/like`,
             withCredentials: false,
             data: {
                 userId: userId,

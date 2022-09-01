@@ -1,16 +1,17 @@
 import Post from '../../components/Post/Post'
-import { Loader } from '../../utils/style/Atoms'
 import { useFetch } from '../../utils/Hooks/Hooks'
 import "./AllPosts.css"
 
 
 const Allposts = () => {
   // fetch les data de l'API
-  let { data, isLoading, error } = useFetch(
+  let { data } = useFetch(
+    // a gérer pour un loading-spinner le temps que les donées chargent
+    // let { data, isLoading, error } = useFetch(
     `http://localhost:4200/api/posts`
   )
 
-  console.log("les datas sont:", data)
+  // console.log("Les datas ALLPOST sont:", data)
 
 
   if (data.error) {
@@ -64,27 +65,13 @@ const Allposts = () => {
 
 export default Allposts
 
-
+/// pour futur affiche du loading spinner
 /*
       {isLoading ? (
         <div>
           <Loader />
         </div>
       ) : (
-
-
-        <div>
-          {postsList?.map((profile, index) => (
-            <Post
-              key={`${profile.name}-${index}`}
-              label={profile.job}
-              title={profile.name}
-              picture={profile.picture}
-            />
-          ))}
-        </div>
-      
-      
+.... data
         )}
-
 */

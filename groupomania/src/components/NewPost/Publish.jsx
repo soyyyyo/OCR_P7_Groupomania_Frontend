@@ -1,9 +1,6 @@
-import NewPost from "./NewPost";
-
 
 const Publish = (data, image) => {
     const token = sessionStorage.getItem('token')
-    const userId = sessionStorage.getItem('userId')
 
     // met en forme les datas pour injection dans le body
     var formData = new FormData();

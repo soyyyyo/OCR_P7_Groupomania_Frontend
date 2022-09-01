@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom"
 
 const SignInForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    let history = useHistory();
-
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -17,7 +14,7 @@ const SignInForm = () => {
 
         axios({
             method: "post",
-            url: `${process.env.REACT_APP_API_URL}api/auth/login`,
+            url: `http://localhost:4200/api/auth/login`,
             withCredentials: false,
             data: {
                 email: email,

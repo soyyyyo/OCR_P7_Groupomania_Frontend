@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components'
-import colors from './colors'
 import "./Variables.css"
 import "./Main.css"
 

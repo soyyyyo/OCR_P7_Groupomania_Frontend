@@ -1,14 +1,10 @@
 import "./Signup.css"
 import React from "react"
-import Regex from "../../utils/Regex";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Signup = () => {
 
     const [loginInput, setLoginInput] = useState({ user: "", password: "" })
-    /// mettre un array
-    const [errorInput, setErrorInput] = useState({ title: true, text: true })
-
 
     const onChange = (e) => {
         const { name, value } = e.target;

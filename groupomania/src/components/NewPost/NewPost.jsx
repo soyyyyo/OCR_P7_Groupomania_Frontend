@@ -3,13 +3,6 @@ import Publish from "./Publish"
 import Regex from "../../utils/Regex";
 import { useEffect, useState } from "react";
 import './NewPost.css'
-import Error from "./Error"
-import { useContext } from "react";
-import { UidContext } from "../../components/AppContext/AppContext";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
-import { useFetch } from "../../utils/Hooks/Hooks";
-
 
 function NewPost() {
     const uid = sessionStorage.getItem("userId")
