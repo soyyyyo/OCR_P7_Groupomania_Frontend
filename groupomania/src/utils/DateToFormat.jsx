@@ -1,4 +1,4 @@
-
+// formate la date vers un format jj/mm/aa hh/mm/ss
 const dateToFormat = (date) => {
     return (
         new Intl.DateTimeFormat('fr-FR', {
