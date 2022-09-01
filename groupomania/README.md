@@ -8,6 +8,7 @@ In the project directory, you can run:
 
 ### `npm start`
 >> You must first 'cd groupomania' to launch from the correct repository.
+>> please make sur you've installed all node modules and dependencies according to package.json
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
