@@ -40,10 +40,7 @@ const SignUpForm = () => {
                     if (res.data.error) {
                         console.log(res);
                         emailError.innerHTML = res.data.error;
-                        // passwordError.innerHTML = res.data.error.email;
-                        // need de creer des erreurs différentes via errors.utils.js et auth.controller.js du projet mern
                     } else {
-                        // window.location = `/`;
                         setIsSignedUp(true);
                         console.log(res.data);
 
@@ -119,7 +116,6 @@ const SignUpForm = () => {
                         value="S'inscrire" />
 
                 </form>
-
             ) : (
 
                 <div className="signed-up">
@@ -128,8 +124,6 @@ const SignUpForm = () => {
                 </div>
 
             )}
-
-
         </Fragment>
     )
 }

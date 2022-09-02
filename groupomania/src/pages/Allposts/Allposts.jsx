@@ -5,6 +5,8 @@ import "./AllPosts.css"
 
 const Allposts = () => {
   // fetch les data de l'API
+
+
   let { data } = useFetch(
     // a gérer pour un loading-spinner le temps que les donées chargent
     // let { data, isLoading, error } = useFetch(

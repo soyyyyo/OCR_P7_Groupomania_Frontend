@@ -70,8 +70,6 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, username, postId
     }
 
 
-
-
     const handleLike = (likeValue) => {
         likeValueUpdater(likeValue)
 
@@ -87,7 +85,6 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, username, postId
             url: `http://localhost:4200/api/posts/${postId}/like`,
             withCredentials: false,
             data: {
-                userId: userId,
                 like: likeValueToSend
             }
         })
