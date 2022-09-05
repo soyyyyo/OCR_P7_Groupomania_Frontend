@@ -1,6 +1,6 @@
 
 const UpdatePost = (postId, data, image) => {
-    console.log("post id:", postId, "data", data)
+    console.log("is post id:", postId, "data", data, "image:", image)
 
 
     const token = sessionStorage.getItem('token')
@@ -30,7 +30,7 @@ const UpdatePost = (postId, data, image) => {
                         // Réponse envoyée par l'API contenant l'orderId
                         console.log(data);
                         // Redirection vers la page d'acceuil pour recharger les data
-                        window.location.href = `http://localhost:3000/`;
+                        // window.location.href = `http://localhost:3000/`;
                     }
                 }
                 catch (error) {

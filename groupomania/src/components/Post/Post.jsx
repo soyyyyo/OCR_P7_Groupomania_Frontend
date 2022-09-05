@@ -163,7 +163,7 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, username, postId
         setUserInputUpdate((userInput) => {
             return { ...userInput, [name]: value }
         })
-        console.log("nouvel input is", userInputUpdate)
+        // console.log("nouvel input is", userInputUpdate)
     }
 
 
@@ -179,7 +179,7 @@ function Post({ title, text, likes, dislikes, imageUrl, userId, username, postId
     // stock l'image avant le nouvel envoi API, si changement d'image.
     const handlePicture = (e) => {
         setFile(e.target.files[0]);
-        console.log("Photo OK")
+        // console.log("Photo OK")
     }
 
 
